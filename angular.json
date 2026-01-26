@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "work-order-schedule:build:production"
+              "buildTarget": "work-order-schedule:build:production"
             },
             "development": {
-              "browserTarget": "work-order-schedule:build:development"
+              "buildTarget": "work-order-schedule:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "work-order-schedule:build"
+            "buildTarget": "work-order-schedule:build"
           }
         },
         "test": {
@@ -107,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
