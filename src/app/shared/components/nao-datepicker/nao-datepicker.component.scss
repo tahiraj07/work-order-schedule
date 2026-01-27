@@ -1,0 +1,24 @@
+.nao-datepicker-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.datepicker-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  margin-top: 8px;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+
+  ngb-datepicker {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #D8DDEB;
+    border-radius: 8px;
+    background: white;
+  }
+}

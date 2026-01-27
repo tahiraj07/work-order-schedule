@@ -1,0 +1,50 @@
+<div class="nao-datepicker-wrapper">
+  <div (click)="toggleDatepicker()">
+    <app-nao-input
+      [id]="id"
+      [label]="label"
+      [placeholder]="placeholder"
+      [required]="required"
+      [disabled]="disabled"
+      [errorMessage]="errorMessage"
+      [hint]="hint"
+      [readonly]="true"
+      [ngModel]="getDisplayValue()"
+      [showDatepickerIcon]="true"
+    />
+  </div>
+
+  <div class="datepicker-popup" [class.show]="showDatepicker()" (click)="$event.stopPropagation()">
+    @if (showDatepicker()) {
+      @if (minDate && maxDate) {
+        <ngb-datepicker
+          #datepicker
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [ngModel]="dateValue()"
+          (dateSelect)="onDateSelect($event)"
+        ></ngb-datepicker>
+      } @else if (minDate) {
+        <ngb-datepicker
+          #datepicker
+          [minDate]="minDate"
+          [ngModel]="dateValue()"
+          (dateSelect)="onDateSelect($event)"
+        ></ngb-datepicker>
+      } @else if (maxDate) {
+        <ngb-datepicker
+          #datepicker
+          [maxDate]="maxDate"
+          [ngModel]="dateValue()"
+          (dateSelect)="onDateSelect($event)"
+        ></ngb-datepicker>
+      } @else {
+        <ngb-datepicker
+          #datepicker
+          [ngModel]="dateValue()"
+          (dateSelect)="onDateSelect($event)"
+        ></ngb-datepicker>
+      }
+    }
+  </div>
+</div>

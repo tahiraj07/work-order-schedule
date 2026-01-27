@@ -1,0 +1,56 @@
+<div class="nao-input-wrapper">
+  @if (showLabel()) {
+    <label [for]="id" class="nao-input-label">
+      {{ label }}
+      @if (required) {
+        <span class="required-indicator">*</span>
+      }
+    </label>
+  }
+
+  <div class="nao-input-container" [class.focused]="isFocused()" [class.error]="hasError()" [class.disabled]="disabled">
+    <input
+      [id]="id"
+      [type]="type"
+      [value]="value()"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      [class.has-icon]="showDatepickerIcon"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      [attr.aria-invalid]="hasError()"
+      [attr.aria-describedby]="hasError() ? id + '-error' : (hint ? id + '-hint' : null)"
+      [attr.aria-required]="required"
+    />
+    
+    @if (showDatepickerIcon) {
+      <button
+        type="button"
+        class="datepicker-icon"
+        (click)="onDatepickerClick()"
+        [disabled]="disabled"
+        [attr.aria-label]="'Open date picker'"
+        tabindex="-1"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" fill="currentColor"/>
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" fill="currentColor"/>
+        </svg>
+      </button>
+    }
+  </div>
+
+  @if (hint && !hasError()) {
+    <div [id]="id + '-hint'" class="nao-input-hint">
+      {{ hint }}
+    </div>
+  }
+
+  @if (hasError()) {
+    <div [id]="id + '-error'" class="nao-input-error" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+</div>
