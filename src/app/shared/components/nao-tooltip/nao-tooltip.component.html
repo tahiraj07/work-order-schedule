@@ -1,1 +1,6 @@
-<p>nao-tooltip works!</p>
+<div class="tooltip-wrapper">
+  <ng-content></ng-content>
+  <div class="tooltip" [class]="'tooltip-' + position">
+    {{ text }}
+  </div>
+</div>
