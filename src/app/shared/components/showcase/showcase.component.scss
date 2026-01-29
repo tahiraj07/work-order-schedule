@@ -1,0 +1,103 @@
+.showcase-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  font-family: "Circular-Std", sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.showcase-header {
+  margin-bottom: 48px;
+  text-align: center;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #212529;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6c757d;
+    margin: 0;
+  }
+}
+
+.showcase-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f8f9fa;
+  }
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.showcase-item {
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .value-display {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6c757d;
+    font-family: monospace;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+}
+
+.showcase-form {
+  max-width: 600px;
+  margin: 0 auto;
+
+  app-nao-input,
+  app-nao-datepicker {
+    margin-bottom: 24px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #dee2e6;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-container {
+    padding: 24px 16px;
+  }
+
+  .showcase-section {
+    padding: 24px 16px;
+  }
+}

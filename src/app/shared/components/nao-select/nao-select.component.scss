@@ -25,10 +25,9 @@
         padding: 0 16px;
         height: 25px;
         color: #687196;
-        font-family: CircularStd-Book;
+        font-family: "Circular-Std", sans-serif;
         font-size: 13px;
         font-weight: 400;
-        font-style: book;  
         display: flex;
         align-items: center; 
       }
@@ -36,10 +35,9 @@
       .timescale-value { 
         padding-left: 12px; 
         color: rgba(62, 64, 219, 1);
-        font-family: CircularStd-Medium;
+        font-family: "Circular-Std", sans-serif;
         font-size: 13px;
         font-weight: 500;
-        font-style: medium;
         border-radius: 0px 5px 5px 0px;
         display: flex;
         align-items: center; 
@@ -61,12 +59,13 @@
     }
 
     .ng-arrow {
-      color: #C8CFE9;
-      border-color: #C8CFE9 transparent transparent;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 5px 4px 0 4px;
+      display: none;
+    }
+
+    .custom-arrow {
+      width: 9px;
+      height: 6px;
+      display: block;
     }
   }
 
@@ -97,12 +96,13 @@
     }
 
     .ng-arrow {
-      color: #6c757d;
-      border-color: #6c757d transparent transparent;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 5px 4px 0 4px;
+      display: none;
+    }
+
+    .custom-arrow {
+      width: 9px;
+      height: 6px;
+      display: block;
     }
   }
 

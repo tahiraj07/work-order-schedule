@@ -1,0 +1,115 @@
+.timeline-page {
+  padding: 24px;
+  font-family: "Circular-Std", sans-serif;
+  background: white;
+  min-height: 100vh;
+  padding: 95px 0 0 100px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 16px 0;
+}
+
+.timescale-selector {
+  display: inline-block;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.work-center-header {
+  padding: 12px 16px;
+  background: #F8F9FA;
+  font-weight: 600;
+  font-size: 14px;
+  color: #495057;
+  border-right: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.timeline-header {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: 1px solid #E0E0E0;
+  background: #F8F9FA;
+}
+
+.timeline-month-header {
+  padding: 12px 8px;
+  text-align: center;
+  border-right: 1px solid #E0E0E0;
+  position: relative;
+  
+  &.current-month {
+    background: #F3E5F5;
+  }
+}
+
+.current-month-label {
+  font-size: 11px;
+  color: #7B1FA2;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.month-name {
+  font-size: 13px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.current-month-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #9C27B0;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.work-center-row {
+  display: contents;
+}
+
+.work-center-name {
+  padding: 16px;
+  border-right: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+  font-size: 14px;
+  color: #212529;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.timeline-cell {
+  min-height: 48px;
+  border-right: 1px solid #E0E0E0;
+  background: white;
+  position: relative;
+  
+  &.current-month {
+    background: #F3E5F5;
+  }
+}

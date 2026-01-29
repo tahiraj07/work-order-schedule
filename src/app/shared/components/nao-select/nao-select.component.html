@@ -22,6 +22,9 @@
           <span class="timescale-value">{{ item?.label || '' }}</span>
         </div>
       </ng-template>
+      <ng-template ng-arrow-tmp>
+        <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
+      </ng-template>
     </ng-select>
   } @else {
  
@@ -42,6 +45,9 @@
       >
         <ng-template ng-label-tmp let-item="item">
           <app-nao-badge [status]="item?.value" />
+        </ng-template>
+        <ng-template ng-arrow-tmp>
+          <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
         </ng-template>
       </ng-select>
  
