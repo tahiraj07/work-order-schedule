@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, signal, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import {
@@ -6,6 +6,7 @@ import {
   SelectOption,
 } from "../../../../shared/components/nao-select/nao-select.component";
 import { TimelineGridComponent } from "../../components/timeline-grid/timeline-grid.component";
+import { WorkOrderService } from "../../../../core/services/work-order.service";
 
 @Component({
   selector: "app-timeline-page",
@@ -15,6 +16,8 @@ import { TimelineGridComponent } from "../../components/timeline-grid/timeline-g
   styleUrl: "./timeline-page.component.scss",
 })
 export class TimelinePageComponent {
+  private workOrderService = inject(WorkOrderService);
+
   // Timescale options
   timescaleOptions: SelectOption[] = [
     { value: "day", label: "Day" },
@@ -24,14 +27,10 @@ export class TimelinePageComponent {
 
   selectedTimescale = signal<string | null>("month");
 
-  // Hardcoded work centers (matching the image)
-  workCenters = [
-    "Genesis Hardware",
-    "Rodriques Electrics",
-    "Konsulting Inc",
-    "McMarrow Distribution",
-    "Spartan Manufacturing",
-  ];
+  // Get work centers from service
+  get workCenters(): string[] {
+    return this.workOrderService.getWorkCenters().map((wc) => wc.data.name);
+  }
 
   // Timeline months (Aug 2024 to Mar 2025)
   timelineMonths = [

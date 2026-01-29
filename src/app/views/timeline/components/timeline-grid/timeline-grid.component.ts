@@ -1,7 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { WorkOrderDocument } from "../../../../core/models/work-order.model";
+import { WorkOrderDocument, WorkCenterDocument } from "../../../../core/models/work-order.model";
 import { WorkOrderBarComponent } from "../work-order-bar/work-order-bar.component";
+import { WorkOrderService } from "../../../../core/services/work-order.service";
 
 @Component({
   selector: "app-timeline-grid",
@@ -11,70 +12,25 @@ import { WorkOrderBarComponent } from "../work-order-bar/work-order-bar.componen
   styleUrl: "./timeline-grid.component.scss",
 })
 export class TimelineGridComponent {
+  private workOrderService = inject(WorkOrderService);
+
   @Input() workCenters: string[] = [];
   @Input() timelineMonths: string[] = [];
   @Input() currentMonth: string = "";
 
-  // Hardcoded work orders for testing (will be replaced with dynamic data later)
+  // Get work orders for a specific work center by name
   getWorkOrdersForCenter(workCenterName: string): WorkOrderDocument[] {
-    // Hardcoded sample data - matching work center names
-    if (workCenterName === "Genesis Hardware") {
-      return [
-        {
-          docId: "wo-1",
-          docType: "workOrder",
-          data: {
-            name: "entrix Ltd",
-            workCenterId: "wc-1",
-            status: "complete",
-            startDate: "2024-08-15",
-            endDate: "2024-10-15",
-          },
-        },
-      ];
+    // Find work center by name
+    const workCenter = this.workOrderService
+      .getWorkCenters()
+      .find((wc) => wc.data.name === workCenterName);
+
+    if (!workCenter) {
+      return [];
     }
-    if (workCenterName === "Konsulting Inc") {
-      return [
-        {
-          docId: "wo-2",
-          docType: "workOrder",
-          data: {
-            name: "Konsulting Inc",
-            workCenterId: "wc-3",
-            status: "in-progress",
-            startDate: "2024-10-15",
-            endDate: "2024-11-20",
-          },
-        },
-        {
-          docId: "wo-3",
-          docType: "workOrder",
-          data: {
-            name: "Compleks Systems",
-            workCenterId: "wc-3",
-            status: "in-progress",
-            startDate: "2024-12-15",
-            endDate: "2025-01-15",
-          },
-        },
-      ];
-    }
-    if (workCenterName === "McMarrow Distribution") {
-      return [
-        {
-          docId: "wo-4",
-          docType: "workOrder",
-          data: {
-            name: "McMarrow Distribution",
-            workCenterId: "wc-4",
-            status: "blocked",
-            startDate: "2024-11-15",
-            endDate: "2024-12-15",
-          },
-        },
-      ];
-    }
-    return [];
+
+    // Get work orders for this work center
+    return this.workOrderService.getWorkOrdersByCenter(workCenter.docId);
   }
 
   // Hardcoded positioning (will be calculated dynamically later)
