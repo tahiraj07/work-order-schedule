@@ -1,0 +1,46 @@
+<div class="timeline-grid-container">
+  <!-- Left Panel: Work Centers -->
+  <div class="work-centers-panel">
+    <div class="work-center-header">Work Center</div>
+    @for (workCenter of workCenters; track workCenter) {
+      <div class="work-center-row">
+        <div class="work-center-name">{{ workCenter }}</div>
+      </div>
+    }
+  </div>
+
+  <!-- Right Panel: Timeline Grid (Scrollable) -->
+  <div class="timeline-panel">
+    <!-- Timeline Header -->
+    <div class="timeline-header">
+      @for (month of timelineMonths; track month) {
+        <div class="timeline-month-header">
+          <div class="month-name">{{ month }}</div>
+          <!-- Vertical line extending down -->
+          <div class="header-vertical-line"></div>
+        </div>
+      }
+    </div>
+
+    <!-- Timeline Rows -->
+    @for (workCenter of workCenters; track workCenter; let i = $index) {
+      <div class="timeline-row">
+        @for (month of timelineMonths; track month) {
+          <div class="timeline-cell" [class.current-month]="month === currentMonth">
+            @if (month === currentMonth && i === 0) {
+              <div class="current-month-label">Current month</div>
+            }
+          </div>
+        }
+        <!-- Work order bars for this work center (positioned absolutely) -->
+        @for (workOrder of getWorkOrdersForCenter(workCenter); track workOrder.docId) {
+          <app-work-order-bar
+            [workOrder]="workOrder"
+            [left]="getBarLeft(workOrder, i)"
+            [width]="getBarWidth(workOrder, i)"
+          />
+        }
+      </div>
+    }
+  </div>
+</div>

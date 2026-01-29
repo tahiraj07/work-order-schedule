@@ -1,0 +1,62 @@
+.work-order-bar {
+  position: absolute;
+  top: 8px;
+  height: calc(100% - 16px);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+  min-width: 120px;
+
+  // Status-based colors
+  &[data-status="open"] {
+    background: #e6f3ff;
+    border: 1px solid #b3d9ff;
+    color: #0066cc;
+  }
+
+  &[data-status="in-progress"] {
+    background: #f3e5f5;
+    border: 1px solid #d4a5e8;
+    color: #7b1fa2;
+  }
+
+  &[data-status="complete"] {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    color: #2e7d32;
+  }
+
+  &[data-status="blocked"] {
+    background: #fff9e6;
+    border: 1px solid #ffd54f;
+    color: #f57c00;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+}
+
+.bar-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.work-order-name {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "CircularStd-Regular", sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}

@@ -14,39 +14,9 @@
   </div>
 
   <!-- Timeline Grid -->
-  <div class="timeline-grid">
-    <!-- Work Center Column Header -->
-    <div class="work-center-header">Work Center</div>
-
-    <!-- Timeline Header -->
-    <div class="timeline-header">
-      @for (month of timelineMonths; track month) {
-        <div class="timeline-month-header" [class.current-month]="month === currentMonth">
-          @if (month === currentMonth) {
-            <div class="current-month-label">Current month</div>
-          }
-          <div class="month-name">{{ month }}</div>
-          @if (month === currentMonth) {
-            <div class="current-month-indicator"></div>
-          }
-        </div>
-      }
-    </div>
-
-    <!-- Work Center Rows -->
-    @for (workCenter of workCenters; track workCenter) {
-      <div class="work-center-row">
-        <div class="work-center-name">{{ workCenter }}</div>
-      </div>
-
-      <!-- Timeline cells for this work center -->
-      <div class="timeline-row">
-        @for (month of timelineMonths; track month) {
-          <div class="timeline-cell" [class.current-month]="month === currentMonth">
-            <!-- Work orders will be rendered here later -->
-          </div>
-        }
-      </div>
-    }
-  </div>
+  <app-timeline-grid
+    [workCenters]="workCenters"
+    [timelineMonths]="timelineMonths"
+    [currentMonth]="currentMonth"
+  />
 </div>

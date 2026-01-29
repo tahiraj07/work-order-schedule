@@ -1,16 +1,16 @@
 import { Component, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { NaoButtonComponent } from "../../../../shared/components/nao-button/nao-button.component";
 import {
   NaoSelectComponent,
   SelectOption,
 } from "../../../../shared/components/nao-select/nao-select.component";
+import { TimelineGridComponent } from "../../components/timeline-grid/timeline-grid.component";
 
 @Component({
   selector: "app-timeline-page",
   standalone: true,
-  imports: [CommonModule, FormsModule, NaoButtonComponent, NaoSelectComponent],
+  imports: [CommonModule, FormsModule, NaoSelectComponent, TimelineGridComponent],
   templateUrl: "./timeline-page.component.html",
   styleUrl: "./timeline-page.component.scss",
 })

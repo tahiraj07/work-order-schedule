@@ -1,0 +1,17 @@
+<div
+  class="work-order-bar"
+  [style.left.px]="left"
+  [style.width.px]="width"
+  [attr.data-status]="workOrder.data.status"
+>
+  <app-nao-tooltip [text]="getTooltipText()">
+    <div class="bar-content">
+      <span class="work-order-name">{{ workOrder.data.name }}</span>
+      <app-nao-badge [status]="workOrder.data.status" />
+      <app-nao-dropdown-menu
+        [items]="dropdownMenuItems"
+        (itemSelected)="onMenuItemSelected($event)"
+      />
+    </div>
+  </app-nao-tooltip>
+</div>

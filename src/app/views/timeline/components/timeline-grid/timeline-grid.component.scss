@@ -1,0 +1,157 @@
+.timeline-grid-container {
+  display: flex;
+  border: 1px solid #E6EBF0; 
+  overflow: hidden;
+  background: white;
+  font-family: "CircularStd-Regular", sans-serif;
+  height: calc(100vh - 200px);
+  min-height: 600px;
+}
+
+.work-centers-panel {
+  flex-shrink: 0;
+  width: 30%;
+  border-right: 1px solid #d8ddeb;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.work-center-header {
+  max-height: 35px;
+  padding: 8px 31px;
+  background: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  color: #687196;
+  font-family: "CircularStd-Regular", sans-serif;
+  border-bottom: 1px solid #E6EBF0;
+  flex-shrink: 0; 
+  display: flex;
+  align-items: center;
+}
+
+.work-center-row {
+  max-height: 60px;
+  min-height: 60px;
+  border-bottom: 1px solid #E6EBF0;
+  flex-shrink: 0;
+  flex: 1;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.work-center-name {
+  padding: 16px 0px 16px 31px; 
+  color: #030929;
+  background: white;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "CircularStd-Regular", sans-serif;
+}
+
+.timeline-panel {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
+.timeline-header {
+  display: flex;
+  border-bottom: 1px solid #E6EBF0;
+  background: #fff; 
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10; 
+  max-height: 35px;
+  min-height: 35px;
+  position: relative;
+}
+
+.timeline-month-header {
+  min-width: 150px; 
+  text-align: center; 
+  position: relative;
+  flex-shrink: 0; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.current-month-label {
+  font-size: 11px;
+  color: #7b1fa2;
+  font-weight: 500;
+}
+
+.month-name {
+  font-size: 14px;
+  color: #687196;
+  font-weight: 500;
+  font-family: "CircularStd-Regular", sans-serif;
+}
+
+.timeline-row {
+  display: flex; 
+  flex-shrink: 0;
+  flex: 1;
+  max-height: 60px;
+  min-height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-cell {
+  min-width: 150px;
+  background: white;
+  position: relative;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+ 
+  &::after {
+    content: "";
+    position: absolute;
+    top: -1000px; // Extend upward
+    bottom: -1000px; // Extend downward
+    right: 0;
+    width: 1px;
+    background: #C8CFE9;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // Current month left border extending through all rows
+  &.current-month::before {
+    content: "";
+    position: absolute;
+    top: -1000px; // Extend upward
+    bottom: -1000px; // Extend downward
+    left: 0;
+    width: 3px;
+    background: #D4D7FF;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+}
