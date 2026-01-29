@@ -8,14 +8,15 @@ button {
   font-weight: 400;
   letter-spacing: 0.33px;
   cursor: pointer;
-  transition: all 0.2s ease; 
+  transition: all 0.2s ease;
   border-radius: 7px;
 
-
   &.primary {
-    background-color: #5659FF;
+    background-color: #5659ff;
     color: #fff;
-    box-shadow: 0 0 0 1px rgba(86, 89, 255, 1) , 0 1px 3px 0 rgba(200, 207, 233, 1);
+    box-shadow:
+      0 0 0 1px rgba(86, 89, 255, 1),
+      0 1px 3px 0 rgba(200, 207, 233, 1);
 
     &:hover:not(:disabled) {
       background-color: #4a32d1;
@@ -24,8 +25,10 @@ button {
 
   &.secondary {
     background-color: white;
-    color: #2F3059;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 1) , 0 1px 3px 0 rgba(200, 207, 233, 1);
+    color: #2f3059;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 1),
+      0 1px 3px 0 rgba(200, 207, 233, 1);
 
     &:hover:not(:disabled) {
       background-color: #f8f9fa;

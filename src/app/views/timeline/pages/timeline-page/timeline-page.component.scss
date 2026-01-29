@@ -24,7 +24,7 @@
 .timeline-grid {
   display: grid;
   grid-template-columns: 200px 1fr;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
   background: white;
@@ -32,35 +32,35 @@
 
 .work-center-header {
   padding: 12px 16px;
-  background: #F8F9FA;
+  background: #f8f9fa;
   font-weight: 600;
   font-size: 14px;
   color: #495057;
-  border-right: 1px solid #E0E0E0;
-  border-bottom: 1px solid #E0E0E0;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .timeline-header {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  border-bottom: 1px solid #E0E0E0;
-  background: #F8F9FA;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
 }
 
 .timeline-month-header {
   padding: 12px 8px;
   text-align: center;
-  border-right: 1px solid #E0E0E0;
+  border-right: 1px solid #e0e0e0;
   position: relative;
-  
+
   &.current-month {
-    background: #F3E5F5;
+    background: #f3e5f5;
   }
 }
 
 .current-month-label {
   font-size: 11px;
-  color: #7B1FA2;
+  color: #7b1fa2;
   margin-bottom: 4px;
   font-weight: 500;
 }
@@ -77,7 +77,7 @@
   bottom: 0;
   left: 50%;
   width: 2px;
-  background: #9C27B0;
+  background: #9c27b0;
   transform: translateX(-50%);
   z-index: 1;
 }
@@ -88,8 +88,8 @@
 
 .work-center-name {
   padding: 16px;
-  border-right: 1px solid #E0E0E0;
-  border-bottom: 1px solid #E0E0E0;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
   font-size: 14px;
   color: #212529;
   background: white;
@@ -100,16 +100,16 @@
 .timeline-row {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .timeline-cell {
   min-height: 48px;
-  border-right: 1px solid #E0E0E0;
+  border-right: 1px solid #e0e0e0;
   background: white;
   position: relative;
-  
+
   &.current-month {
-    background: #F3E5F5;
+    background: #f3e5f5;
   }
 }

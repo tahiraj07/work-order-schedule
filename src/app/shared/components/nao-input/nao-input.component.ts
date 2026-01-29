@@ -1,12 +1,12 @@
-import { Component, Input, forwardRef, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, forwardRef, computed, signal } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from "@angular/forms";
 
 /**
  * Shared Input Component
  * Reusable input component matching the design system
  * Supports both regular text input and datepicker integration
- * 
+ *
  * Design specs from images:
  * - White background
  * - Light gray border (#D8DDEB)
@@ -15,38 +15,38 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
  * - Placeholder text in light gray (#8E97A6)
  */
 @Component({
-  selector: 'app-nao-input',
+  selector: "app-nao-input",
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './nao-input.component.html',
-  styleUrl: './nao-input.component.scss',
+  templateUrl: "./nao-input.component.html",
+  styleUrl: "./nao-input.component.scss",
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NaoInputComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class NaoInputComponent implements ControlValueAccessor {
   @Input() id = `nao-input-${Math.random().toString(36).substr(2, 9)}`;
   @Input() label?: string;
-  @Input() type: string = 'text';
-  @Input() placeholder = '';
+  @Input() type: string = "text";
+  @Input() placeholder = "";
   @Input() required = false;
   @Input() disabled = false;
   @Input() readonly = false;
   @Input() errorMessage?: string;
   @Input() hint?: string;
-  
+
   // For datepicker integration
   @Input() datepicker?: any; // ngbDatepicker reference (can be set from parent)
   @Input() showDatepickerIcon = false;
 
   // Internal state
-  value = signal<string>('');
+  value = signal<string>("");
   isFocused = signal(false);
-  
+
   // ControlValueAccessor callbacks
   private onChange = (value: string) => {};
   private onTouched = () => {};
@@ -95,7 +95,7 @@ export class NaoInputComponent implements ControlValueAccessor {
    * ControlValueAccessor: Write value from form
    */
   writeValue(value: string): void {
-    this.value.set(value || '');
+    this.value.set(value || "");
   }
 
   /**

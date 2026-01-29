@@ -1,17 +1,17 @@
 /**
  * Work Order Status Types
  */
-export type WorkOrderStatus = 'open' | 'in-progress' | 'complete' | 'blocked';
+export type WorkOrderStatus = "open" | "in-progress" | "complete" | "blocked";
 
 /**
  * Timeline Zoom Level
  */
-export type TimelineZoomLevel = 'day' | 'week' | 'month';
+export type TimelineZoomLevel = "day" | "week" | "month";
 
 /**
  * Work Order Form Mode
  */
-export type WorkOrderFormMode = 'create' | 'edit';
+export type WorkOrderFormMode = "create" | "edit";
 
 /**
  * Base Document Structure
@@ -26,7 +26,7 @@ export interface BaseDocument {
  */
 export interface WorkCenterDocument extends BaseDocument {
   docId: string;
-  docType: 'workCenter';
+  docType: "workCenter";
   data: {
     name: string;
   };
@@ -37,7 +37,7 @@ export interface WorkCenterDocument extends BaseDocument {
  */
 export interface WorkOrderDocument extends BaseDocument {
   docId: string;
-  docType: 'workOrder';
+  docType: "workOrder";
   data: {
     name: string;
     workCenterId: string;

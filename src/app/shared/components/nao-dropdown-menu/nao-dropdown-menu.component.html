@@ -8,13 +8,23 @@
     aria-haspopup="true"
   >
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-      <circle cx="8" cy="3" r="1.5"/>
-      <circle cx="8" cy="8" r="1.5"/>
-      <circle cx="8" cy="13" r="1.5"/>
+      <circle cx="8" cy="3" r="1.5" />
+      <circle cx="8" cy="8" r="1.5" />
+      <circle cx="8" cy="13" r="1.5" />
     </svg>
   </button>
   @if (isOpen) {
-    <div class="dropdown-menu" role="menu" (click)="$event.stopPropagation()" style="display: block !important; visibility: visible !important; background: white !important; border: 2px solid red !important;">
+    <div
+      class="dropdown-menu"
+      role="menu"
+      (click)="$event.stopPropagation()"
+      style="
+        display: block !important;
+        visibility: visible !important;
+        background: white !important;
+        border: 2px solid red !important;
+      "
+    >
       @if (items && items.length > 0) {
         @for (item of items; track item.value) {
           <button
@@ -28,10 +38,14 @@
           </button>
         }
       } @else {
-        <div class="dropdown-item" style="color: #999; padding: 10px 16px;">No items (items: {{ items.length || 0 }})</div>
+        <div class="dropdown-item" style="color: #999; padding: 10px 16px">
+          No items (items: {{ items.length || 0 }})
+        </div>
       }
     </div>
   }
   <!-- Debug: Show state -->
-  <div style="font-size: 10px; color: red; margin-top: 4px;">Debug: isOpen={{ isOpen }}, items={{ items.length || 0 }}</div>
+  <div style="font-size: 10px; color: red; margin-top: 4px">
+    Debug: isOpen={{ isOpen }}, items={{ items.length || 0 }}
+  </div>
 </div>

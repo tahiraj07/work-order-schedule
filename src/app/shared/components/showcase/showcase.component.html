@@ -8,25 +8,18 @@
   <!-- Nao Input Component Examples -->
   <section class="showcase-section">
     <h2>Nao Input Component</h2>
-    
+
     <div class="showcase-grid">
       <!-- Basic Input -->
       <div class="showcase-item">
         <h3>Basic Input</h3>
-        <app-nao-input
-          label="Work Order Name"
-          placeholder="Acme Inc."
-        />
+        <app-nao-input label="Work Order Name" placeholder="Acme Inc." />
       </div>
 
       <!-- Required Input -->
       <div class="showcase-item">
         <h3>Required Input</h3>
-        <app-nao-input
-          label="Required Field"
-          placeholder="Enter value"
-          [required]="true"
-        />
+        <app-nao-input label="Required Field" placeholder="Enter value" [required]="true" />
       </div>
 
       <!-- Input with Error -->
@@ -63,21 +56,13 @@
       <!-- Readonly Input -->
       <div class="showcase-item">
         <h3>Readonly Input</h3>
-        <app-nao-input
-          label="Readonly Field"
-          [readonly]="true"
-          [(ngModel)]="readonlyValue"
-        />
+        <app-nao-input label="Readonly Field" [readonly]="true" [(ngModel)]="readonlyValue" />
       </div>
 
       <!-- Email Input -->
       <div class="showcase-item">
         <h3>Email Input</h3>
-        <app-nao-input
-          label="Email Address"
-          type="email"
-          placeholder="email@example.com"
-        />
+        <app-nao-input label="Email Address" type="email" placeholder="email@example.com" />
       </div>
 
       <!-- Input in Form -->
@@ -99,25 +84,18 @@
   <!-- Nao Datepicker Component Examples -->
   <section class="showcase-section">
     <h2>Nao Datepicker Component</h2>
-    
+
     <div class="showcase-grid">
       <!-- Basic Datepicker -->
       <div class="showcase-item">
         <h3>Basic Datepicker</h3>
-        <app-nao-datepicker
-          label="Start Date"
-          placeholder="Select date"
-        />
+        <app-nao-datepicker label="Start Date" placeholder="Select date" />
       </div>
 
       <!-- Required Datepicker -->
       <div class="showcase-item">
         <h3>Required Datepicker</h3>
-        <app-nao-datepicker
-          label="Required Date"
-          placeholder="Select date"
-          [required]="true"
-        />
+        <app-nao-datepicker label="Required Date" placeholder="Select date" [required]="true" />
       </div>
 
       <!-- Datepicker with Error -->
@@ -155,11 +133,7 @@
       <!-- Disabled Datepicker -->
       <div class="showcase-item">
         <h3>Disabled Datepicker</h3>
-        <app-nao-datepicker
-          label="Disabled Date"
-          placeholder="Cannot select"
-          [disabled]="true"
-        />
+        <app-nao-datepicker label="Disabled Date" placeholder="Cannot select" [disabled]="true" />
       </div>
 
       <!-- Datepicker in Form -->
@@ -181,7 +155,7 @@
   <!-- Nao Select Component Examples -->
   <section class="showcase-section">
     <h2>Nao Select Component</h2>
-    
+
     <div class="showcase-grid">
       <div class="showcase-item">
         <h3>Timescale Select (Default)</h3>
@@ -250,7 +224,7 @@
   <!-- Nao Badge Component Examples -->
   <section class="showcase-section">
     <h2>Nao Badge Component</h2>
-    
+
     <div class="showcase-grid">
       @for (status of statuses; track status) {
         <div class="showcase-item">
@@ -264,7 +238,7 @@
   <!-- Nao Button Component Examples -->
   <section class="showcase-section">
     <h2>Nao Button Component</h2>
-    
+
     <div class="showcase-grid">
       <div class="showcase-item">
         <h3>Primary Button</h3>
@@ -291,7 +265,7 @@
   <!-- Form Example -->
   <section class="showcase-section">
     <h2>Complete Form Example</h2>
-    
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="showcase-form">
       <app-nao-input
         formControlName="textInput"
@@ -336,7 +310,7 @@
   <!-- Standalone Examples -->
   <section class="showcase-section">
     <h2>Standalone (Non-Form) Examples</h2>
-    
+
     <div class="showcase-grid">
       <div class="showcase-item">
         <h3>Standalone Text Input</h3>
@@ -355,23 +329,43 @@
           label="Standalone Date"
           placeholder="Select date"
         />
-        <p class="value-display">Value: {{ standaloneDate() || 'No date selected' }}</p>
+        <p class="value-display">Value: {{ standaloneDate() || "No date selected" }}</p>
       </div>
 
       <!-- Tooltip Component -->
       <div class="showcase-item">
         <h3>Tooltip Component</h3>
         <p>Hover over the button to see the tooltip:</p>
-        <div style="margin: 20px 0;">
+        <div style="margin: 20px 0">
           <app-nao-tooltip text="Click to add dates" position="top">
-            <button style="padding: 8px 16px; background: #2F3059; color: white; border: none; border-radius: 6px; cursor: pointer; font-family: 'Circular-Std', sans-serif;">
+            <button
+              style="
+                padding: 8px 16px;
+                background: #2f3059;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-family: &quot;Circular-Std&quot;, sans-serif;
+              "
+            >
               Hover me (Top)
             </button>
           </app-nao-tooltip>
         </div>
-        <div style="margin: 20px 0;">
+        <div style="margin: 20px 0">
           <app-nao-tooltip text="This is a bottom tooltip" position="bottom">
-            <button style="padding: 8px 16px; background: #5659FF; color: white; border: none; border-radius: 6px; cursor: pointer; font-family: 'Circular-Std', sans-serif;">
+            <button
+              style="
+                padding: 8px 16px;
+                background: #5659ff;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-family: &quot;Circular-Std&quot;, sans-serif;
+              "
+            >
               Hover me (Bottom)
             </button>
           </app-nao-tooltip>
@@ -382,7 +376,17 @@
       <div class="showcase-item">
         <h3>Dropdown Menu Component</h3>
         <p>Click the three dots to open the menu:</p>
-        <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; display: inline-block; position: relative; overflow: visible;">
+        <div
+          style="
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: inline-block;
+            position: relative;
+            overflow: visible;
+          "
+        >
           <app-nao-dropdown-menu
             [items]="dropdownMenuItems"
             ariaLabel="Work order actions"
@@ -390,8 +394,10 @@
           />
         </div>
         @if (selectedMenuItem()) {
-          <p class="value-display" style="margin-top: 10px;">
-            Last selected: <strong>{{ selectedMenuItem()?.label }}</strong> ({{ selectedMenuItem()?.value }})
+          <p class="value-display" style="margin-top: 10px">
+            Last selected: <strong>{{ selectedMenuItem()?.label }}</strong> ({{
+              selectedMenuItem()?.value
+            }})
           </p>
         }
       </div>

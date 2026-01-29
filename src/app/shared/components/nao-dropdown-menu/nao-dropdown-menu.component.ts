@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, HostListener } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 export interface DropdownMenuItem {
   label: string;
@@ -8,15 +8,15 @@ export interface DropdownMenuItem {
 }
 
 @Component({
-  selector: 'app-nao-dropdown-menu',
+  selector: "app-nao-dropdown-menu",
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './nao-dropdown-menu.component.html',
-  styleUrl: './nao-dropdown-menu.component.scss'
+  templateUrl: "./nao-dropdown-menu.component.html",
+  styleUrl: "./nao-dropdown-menu.component.scss",
 })
 export class NaoDropdownMenuComponent {
   @Input() items: DropdownMenuItem[] = [];
-  @Input() ariaLabel = 'Actions menu';
+  @Input() ariaLabel = "Actions menu";
   @Output() itemSelected = new EventEmitter<DropdownMenuItem>();
 
   isOpen = false;
@@ -24,7 +24,7 @@ export class NaoDropdownMenuComponent {
   toggle(event: Event): void {
     event.stopPropagation();
     this.isOpen = !this.isOpen;
-    console.log('Toggle clicked! isOpen:', this.isOpen, 'items:', this.items);
+    console.log("Toggle clicked! isOpen:", this.isOpen, "items:", this.items);
   }
 
   selectItem(item: DropdownMenuItem, event: Event): void {
@@ -35,17 +35,17 @@ export class NaoDropdownMenuComponent {
     }
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener("document:click", ["$event"])
   onClickOutside(event: MouseEvent): void {
     if (!this.isOpen) return;
-    
+
     const target = event.target as HTMLElement;
-    if (!target.closest('app-nao-dropdown-menu')) {
+    if (!target.closest("app-nao-dropdown-menu")) {
       this.isOpen = false;
     }
   }
 
-  @HostListener('document:keydown.escape')
+  @HostListener("document:keydown.escape")
   onEscape(): void {
     this.isOpen = false;
   }

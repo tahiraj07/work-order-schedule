@@ -1,6 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { WorkOrderDocument, WorkCenterDocument, WorkOrderStatus } from '../models/work-order.model';
-import { TimelineService } from './timeline.service';
+import { Injectable, signal, computed } from "@angular/core";
+import { WorkOrderDocument, WorkCenterDocument, WorkOrderStatus } from "../models/work-order.model";
+import { TimelineService } from "./timeline.service";
 
 /**
  * Work Order Service
@@ -8,12 +8,12 @@ import { TimelineService } from './timeline.service';
  * Uses Angular signals for reactive state management
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class WorkOrderService {
   // Work centers (reactive signal)
   private readonly workCenters = signal<WorkCenterDocument[]>([]);
-  
+
   // Work orders (reactive signal)
   private readonly workOrders = signal<WorkOrderDocument[]>([]);
 
@@ -36,7 +36,7 @@ export class WorkOrderService {
     } else {
       this.workOrders.set(this.getSampleWorkOrders());
     }
-    
+
     this.workCenters.set(this.getSampleWorkCenters());
   }
 
@@ -51,7 +51,7 @@ export class WorkOrderService {
    * Get work center by ID
    */
   getWorkCenterById(id: string): WorkCenterDocument | undefined {
-    return this.workCenters().find(wc => wc.docId === id);
+    return this.workCenters().find((wc) => wc.docId === id);
   }
 
   /**
@@ -65,14 +65,14 @@ export class WorkOrderService {
    * Get work orders for a specific work center
    */
   getWorkOrdersByCenter(workCenterId: string): WorkOrderDocument[] {
-    return this.workOrders().filter(wo => wo.data.workCenterId === workCenterId);
+    return this.workOrders().filter((wo) => wo.data.workCenterId === workCenterId);
   }
 
   /**
    * Get work order by ID
    */
   getWorkOrderById(id: string): WorkOrderDocument | undefined {
-    return this.workOrders().find(wo => wo.docId === id);
+    return this.workOrders().find((wo) => wo.docId === id);
   }
 
   /**
@@ -80,30 +80,36 @@ export class WorkOrderService {
    * @param order Work order data (without docId and docType)
    * @returns Success status and optional error message
    */
-  createWorkOrder(order: Omit<WorkOrderDocument, 'docId' | 'docType'>): { success: boolean; error?: string } {
+  createWorkOrder(order: Omit<WorkOrderDocument, "docId" | "docType">): {
+    success: boolean;
+    error?: string;
+  } {
     // Validate overlap
     const fullOrder: WorkOrderDocument = {
       docId: this.generateId(),
-      docType: 'workOrder',
-      ...order
+      docType: "workOrder",
+      ...order,
     };
 
     if (this.timelineService.checkOverlap(fullOrder, this.workOrders())) {
-      return { success: false, error: 'Work order overlaps with an existing order on this work center' };
+      return {
+        success: false,
+        error: "Work order overlaps with an existing order on this work center",
+      };
     }
 
     // Validate dates
     const startDate = new Date(order.data.startDate);
     const endDate = new Date(order.data.endDate);
-    
+
     if (endDate <= startDate) {
-      return { success: false, error: 'End date must be after start date' };
+      return { success: false, error: "End date must be after start date" };
     }
 
     // Add order
-    this.workOrders.update(orders => [...orders, fullOrder]);
+    this.workOrders.update((orders) => [...orders, fullOrder]);
     this.saveToLocalStorage();
-    
+
     return { success: true };
   }
 
@@ -113,37 +119,43 @@ export class WorkOrderService {
    * @param updates Partial data to update
    * @returns Success status and optional error message
    */
-  updateWorkOrder(orderId: string, updates: Partial<WorkOrderDocument['data']>): { success: boolean; error?: string } {
+  updateWorkOrder(
+    orderId: string,
+    updates: Partial<WorkOrderDocument["data"]>
+  ): { success: boolean; error?: string } {
     const existingOrder = this.getWorkOrderById(orderId);
     if (!existingOrder) {
-      return { success: false, error: 'Work order not found' };
+      return { success: false, error: "Work order not found" };
     }
 
     // Create updated order
     const updatedOrder: WorkOrderDocument = {
       ...existingOrder,
-      data: { ...existingOrder.data, ...updates }
+      data: { ...existingOrder.data, ...updates },
     };
 
     // Validate overlap (excluding current order)
     if (this.timelineService.checkOverlap(updatedOrder, this.workOrders(), orderId)) {
-      return { success: false, error: 'Work order overlaps with an existing order on this work center' };
+      return {
+        success: false,
+        error: "Work order overlaps with an existing order on this work center",
+      };
     }
 
     // Validate dates
     const startDate = new Date(updatedOrder.data.startDate);
     const endDate = new Date(updatedOrder.data.endDate);
-    
+
     if (endDate <= startDate) {
-      return { success: false, error: 'End date must be after start date' };
+      return { success: false, error: "End date must be after start date" };
     }
 
     // Update order
-    this.workOrders.update(orders =>
-      orders.map(order => order.docId === orderId ? updatedOrder : order)
+    this.workOrders.update((orders) =>
+      orders.map((order) => (order.docId === orderId ? updatedOrder : order))
     );
     this.saveToLocalStorage();
-    
+
     return { success: true };
   }
 
@@ -152,7 +164,7 @@ export class WorkOrderService {
    * @param orderId ID of the order to delete
    */
   deleteWorkOrder(orderId: string): void {
-    this.workOrders.update(orders => orders.filter(order => order.docId !== orderId));
+    this.workOrders.update((orders) => orders.filter((order) => order.docId !== orderId));
     this.saveToLocalStorage();
   }
 
@@ -168,9 +180,9 @@ export class WorkOrderService {
    */
   private saveToLocalStorage(): void {
     try {
-      localStorage.setItem('workOrders', JSON.stringify(this.workOrders()));
+      localStorage.setItem("workOrders", JSON.stringify(this.workOrders()));
     } catch (error) {
-      console.warn('Failed to save to localStorage:', error);
+      console.warn("Failed to save to localStorage:", error);
     }
   }
 
@@ -179,12 +191,12 @@ export class WorkOrderService {
    */
   private loadFromLocalStorage(): WorkOrderDocument[] | null {
     try {
-      const saved = localStorage.getItem('workOrders');
+      const saved = localStorage.getItem("workOrders");
       if (saved) {
         return JSON.parse(saved);
       }
     } catch (error) {
-      console.warn('Failed to load from localStorage:', error);
+      console.warn("Failed to load from localStorage:", error);
     }
     return null;
   }
@@ -195,11 +207,11 @@ export class WorkOrderService {
    */
   private getSampleWorkCenters(): WorkCenterDocument[] {
     return [
-      { docId: 'wc_1', docType: 'workCenter', data: { name: 'Genesis Hardware' } },
-      { docId: 'wc_2', docType: 'workCenter', data: { name: 'Rodriques Electrics' } },
-      { docId: 'wc_3', docType: 'workCenter', data: { name: 'Konsulting Inc' } },
-      { docId: 'wc_4', docType: 'workCenter', data: { name: 'McMarrow Distribution' } },
-      { docId: 'wc_5', docType: 'workCenter', data: { name: 'Spartan Manufacturing' } },
+      { docId: "wc_1", docType: "workCenter", data: { name: "Genesis Hardware" } },
+      { docId: "wc_2", docType: "workCenter", data: { name: "Rodriques Electrics" } },
+      { docId: "wc_3", docType: "workCenter", data: { name: "Konsulting Inc" } },
+      { docId: "wc_4", docType: "workCenter", data: { name: "McMarrow Distribution" } },
+      { docId: "wc_5", docType: "workCenter", data: { name: "Spartan Manufacturing" } },
     ];
   }
 
@@ -212,97 +224,97 @@ export class WorkOrderService {
    */
   private getSampleWorkOrders(): WorkOrderDocument[] {
     const today = new Date();
-    const formatDate = (date: Date) => date.toISOString().split('T')[0];
+    const formatDate = (date: Date) => date.toISOString().split("T")[0];
 
     return [
       {
-        docId: 'wo_1',
-        docType: 'workOrder',
+        docId: "wo_1",
+        docType: "workOrder",
         data: {
-          name: 'entrix Ltd',
-          workCenterId: 'wc_1',
-          status: 'complete',
+          name: "entrix Ltd",
+          workCenterId: "wc_1",
+          status: "complete",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 15)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 5))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 5)),
+        },
       },
       {
-        docId: 'wo_2',
-        docType: 'workOrder',
+        docId: "wo_2",
+        docType: "workOrder",
         data: {
-          name: 'Konsulting Inc',
-          workCenterId: 'wc_3',
-          status: 'in-progress',
+          name: "Konsulting Inc",
+          workCenterId: "wc_3",
+          status: "in-progress",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 20)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 10))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 10)),
+        },
       },
       {
-        docId: 'wo_3',
-        docType: 'workOrder',
+        docId: "wo_3",
+        docType: "workOrder",
         data: {
-          name: 'McMarrow Distribution',
-          workCenterId: 'wc_4',
-          status: 'blocked',
+          name: "McMarrow Distribution",
+          workCenterId: "wc_4",
+          status: "blocked",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 25)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 15))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 15)),
+        },
       },
       {
-        docId: 'wo_4',
-        docType: 'workOrder',
+        docId: "wo_4",
+        docType: "workOrder",
         data: {
-          name: 'Compleks Systems',
-          workCenterId: 'wc_3',
-          status: 'in-progress',
+          name: "Compleks Systems",
+          workCenterId: "wc_3",
+          status: "in-progress",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 20)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth() + 1, 5))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth() + 1, 5)),
+        },
       },
       {
-        docId: 'wo_5',
-        docType: 'workOrder',
+        docId: "wo_5",
+        docType: "workOrder",
         data: {
-          name: 'Project Alpha',
-          workCenterId: 'wc_2',
-          status: 'open',
+          name: "Project Alpha",
+          workCenterId: "wc_2",
+          status: "open",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 1)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 8))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 8)),
+        },
       },
       {
-        docId: 'wo_6',
-        docType: 'workOrder',
+        docId: "wo_6",
+        docType: "workOrder",
         data: {
-          name: 'Project Beta',
-          workCenterId: 'wc_2',
-          status: 'in-progress',
+          name: "Project Beta",
+          workCenterId: "wc_2",
+          status: "in-progress",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 15)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 22))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 22)),
+        },
       },
       {
-        docId: 'wo_7',
-        docType: 'workOrder',
+        docId: "wo_7",
+        docType: "workOrder",
         data: {
-          name: 'Quality Check',
-          workCenterId: 'wc_5',
-          status: 'complete',
+          name: "Quality Check",
+          workCenterId: "wc_5",
+          status: "complete",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 10)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 17))
-        }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 17)),
+        },
       },
       {
-        docId: 'wo_8',
-        docType: 'workOrder',
+        docId: "wo_8",
+        docType: "workOrder",
         data: {
-          name: 'Maintenance Task',
-          workCenterId: 'wc_1',
-          status: 'open',
+          name: "Maintenance Task",
+          workCenterId: "wc_1",
+          status: "open",
           startDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 10)),
-          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 17))
-        }
-      }
+          endDate: formatDate(new Date(today.getFullYear(), today.getMonth(), 17)),
+        },
+      },
     ];
   }
 }

@@ -1,9 +1,9 @@
-import { Component, Input, forwardRef, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NaoBadgeComponent } from '../nao-badge/nao-badge.component';
-import { WorkOrderStatus } from '../../../core/models/work-order.model';
+import { Component, Input, forwardRef, signal, computed } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { NaoBadgeComponent } from "../nao-badge/nao-badge.component";
+import { WorkOrderStatus } from "../../../core/models/work-order.model";
 
 export interface SelectOption {
   value: string;
@@ -11,28 +11,28 @@ export interface SelectOption {
 }
 
 @Component({
-  selector: 'app-nao-select',
+  selector: "app-nao-select",
   standalone: true,
   imports: [CommonModule, FormsModule, NgSelectModule, NaoBadgeComponent],
-  templateUrl: './nao-select.component.html',
-  styleUrl: './nao-select.component.scss',
+  templateUrl: "./nao-select.component.html",
+  styleUrl: "./nao-select.component.scss",
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NaoSelectComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class NaoSelectComponent implements ControlValueAccessor {
   @Input() id = `nao-select-${Math.random().toString(36).substr(2, 9)}`;
   @Input() label?: string;
-  @Input() placeholder = 'Select...';
+  @Input() placeholder = "Select...";
   @Input() required = false;
   @Input() disabled = false;
   @Input() errorMessage?: string;
   @Input() hint?: string;
-  @Input() variant: 'default' | 'status' = 'default';
+  @Input() variant: "default" | "status" = "default";
   @Input() items: SelectOption[] = [];
 
   // Internal state
@@ -46,19 +46,19 @@ export class NaoSelectComponent implements ControlValueAccessor {
   // Computed values
   hasError = computed(() => !!this.errorMessage);
   showLabel = computed(() => !!this.label);
-  isStatusVariant = computed(() => this.variant === 'status');
-  
+  isStatusVariant = computed(() => this.variant === "status");
+
   /**
    * Check if status input field should show focus state
    */
-  isStatusFocused = computed(() => this.isFocused() && this.variant === 'status');
+  isStatusFocused = computed(() => this.isFocused() && this.variant === "status");
 
   /**
    * Get selected option
    */
   getSelectedOption(): SelectOption | null {
     if (!this.selectedValue()) return null;
-    return this.items.find(item => item.value === this.selectedValue()) || null;
+    return this.items.find((item) => item.value === this.selectedValue()) || null;
   }
 
   /**
@@ -66,7 +66,7 @@ export class NaoSelectComponent implements ControlValueAccessor {
    */
   getSelectedLabel(): string {
     const option = this.getSelectedOption();
-    return option ? option.label : '';
+    return option ? option.label : "";
   }
 
   /**

@@ -1,5 +1,5 @@
 <div class="nao-select-wrapper">
-  @if (variant === 'default') {
+  @if (variant === "default") {
     <!-- Timescale Select -->
     <ng-select
       [id]="id"
@@ -19,7 +19,7 @@
       <ng-template ng-label-tmp let-item="item">
         <div class="timescale-label-value">
           <span class="timescale-label">{{ label }}</span>
-          <span class="timescale-value">{{ item?.label || '' }}</span>
+          <span class="timescale-value">{{ item?.label || "" }}</span>
         </div>
       </ng-template>
       <ng-template ng-arrow-tmp>
@@ -27,30 +27,28 @@
       </ng-template>
     </ng-select>
   } @else {
- 
-      <ng-select
-        [id]="id"
-        [items]="items"
-        bindLabel="label"
-        bindValue="value"
-        [ngModel]="selectedValue()"
-        (ngModelChange)="onSelectionChange($event)"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        [disabled]="disabled"
-        [placeholder]="selectedValue() ? '' : placeholder"
-        [clearable]="false"
-        [searchable]="false"
-        class="status-select"
-      >
-        <ng-template ng-label-tmp let-item="item">
-          <app-nao-badge [status]="item?.value" />
-        </ng-template>
-        <ng-template ng-arrow-tmp>
-          <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
-        </ng-template>
-      </ng-select>
- 
+    <ng-select
+      [id]="id"
+      [items]="items"
+      bindLabel="label"
+      bindValue="value"
+      [ngModel]="selectedValue()"
+      (ngModelChange)="onSelectionChange($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      [disabled]="disabled"
+      [placeholder]="selectedValue() ? '' : placeholder"
+      [clearable]="false"
+      [searchable]="false"
+      class="status-select"
+    >
+      <ng-template ng-label-tmp let-item="item">
+        <app-nao-badge [status]="item?.value" />
+      </ng-template>
+      <ng-template ng-arrow-tmp>
+        <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
+      </ng-template>
+    </ng-select>
   }
 
   @if (errorMessage && hasError()) {

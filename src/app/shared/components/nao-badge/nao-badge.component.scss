@@ -5,28 +5,28 @@ span {
   font-family: "Circular-Std", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  text-align: center; 
+  text-align: center;
   letter-spacing: 0.2px;
   white-space: nowrap;
 }
 
 .status-open {
-  background-color: #E4FDFF; 
-  border: 1px solid #CEFBFF;
-  color: #00B0BF;
+  background-color: #e4fdff;
+  border: 1px solid #cefbff;
+  color: #00b0bf;
 }
 
 .status-in-progress {
-  background-color: #D6D8FF; 
-  color: #3E40DB;
+  background-color: #d6d8ff;
+  color: #3e40db;
 }
 
 .status-complete {
-  background-color: #E1FFCC; 
-  color: #08A268;
+  background-color: #e1ffcc;
+  color: #08a268;
 }
 
 .status-blocked {
-  background-color: #FCEEB5; 
-  color: #B13600;
+  background-color: #fceeb5;
+  color: #b13600;
 }

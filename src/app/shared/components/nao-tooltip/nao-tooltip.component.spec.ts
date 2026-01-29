@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NaoTooltipComponent } from './nao-tooltip.component';
+import { NaoTooltipComponent } from "./nao-tooltip.component";
 
-describe('NaoTooltipComponent', () => {
+describe("NaoTooltipComponent", () => {
   let component: NaoTooltipComponent;
   let fixture: ComponentFixture<NaoTooltipComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NaoTooltipComponent]
-    })
-    .compileComponents();
-    
+      imports: [NaoTooltipComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(NaoTooltipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

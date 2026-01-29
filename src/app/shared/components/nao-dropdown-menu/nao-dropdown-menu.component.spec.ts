@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NaoDropdownMenuComponent } from './nao-dropdown-menu.component';
+import { NaoDropdownMenuComponent } from "./nao-dropdown-menu.component";
 
-describe('NaoDropdownMenuComponent', () => {
+describe("NaoDropdownMenuComponent", () => {
   let component: NaoDropdownMenuComponent;
   let fixture: ComponentFixture<NaoDropdownMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NaoDropdownMenuComponent]
-    })
-    .compileComponents();
+      imports: [NaoDropdownMenuComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NaoDropdownMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
