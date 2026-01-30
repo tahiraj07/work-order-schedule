@@ -12,11 +12,7 @@ import { NaoDatepickerComponent } from "../nao-datepicker/nao-datepicker.compone
 import { NaoButtonComponent } from "../nao-button/nao-button.component";
 import { NaoBadgeComponent } from "../nao-badge/nao-badge.component";
 import { NaoSelectComponent, SelectOption } from "../nao-select/nao-select.component";
-import { NaoTooltipComponent } from "../nao-tooltip/nao-tooltip.component";
-import {
-  NaoDropdownMenuComponent,
-  DropdownMenuItem,
-} from "../nao-dropdown-menu/nao-dropdown-menu.component";
+import { NaoTooltipComponent, TooltipMenuItem } from "../nao-tooltip/nao-tooltip.component";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { WorkOrderStatus, TimelineZoomLevel } from "../../../core/models/work-order.model";
 
@@ -38,7 +34,6 @@ import { WorkOrderStatus, TimelineZoomLevel } from "../../../core/models/work-or
     NaoBadgeComponent,
     NaoSelectComponent,
     NaoTooltipComponent,
-    NaoDropdownMenuComponent,
   ],
   templateUrl: "./showcase.component.html",
   styleUrl: "./showcase.component.scss",
@@ -79,17 +74,23 @@ export class ShowcaseComponent {
   selectedTimescale = signal<string | null>("month");
   selectedStatus = signal<string | null>("open");
 
-  dropdownMenuItems: DropdownMenuItem[] = [
+  dropdownMenuItems: TooltipMenuItem[] = [
     { label: "Edit", value: "edit" },
     { label: "Delete", value: "delete" },
   ];
 
-  selectedMenuItem = signal<DropdownMenuItem | null>(null);
+  selectedMenuItem = signal<TooltipMenuItem | null>(null);
+  isDropdownOpen = signal(false);
 
-  onMenuItemSelected(item: DropdownMenuItem): void {
+  onMenuItemSelected(item: TooltipMenuItem): void {
     this.selectedMenuItem.set(item);
     console.log("Menu item selected:", item);
     alert(`Selected: ${item.label} (${item.value})`);
+    this.isDropdownOpen.set(false);
+  }
+
+  onDropdownClosed(): void {
+    this.isDropdownOpen.set(false);
   }
 
   // Date constraints

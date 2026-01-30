@@ -6,6 +6,8 @@
   font-family: "CircularStd-Regular", sans-serif;
   height: calc(100vh - 200px);
   min-height: 600px;
+  position: relative;
+  z-index: 1;
 }
 
 .work-centers-panel {
@@ -72,12 +74,10 @@
   border-bottom: 1px solid #E6EBF0;
   background: #fff; 
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 10; 
+  position: relative;
+  z-index: 1; 
   max-height: 35px;
   min-height: 35px;
-  position: relative;
 }
 
 .timeline-month-header {
@@ -88,7 +88,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
+  border-bottom: 1px solid #E6EBF0;
+
+  &:last-child {
+    border-right: none;
+  }
 }
 
 .current-month-label {
@@ -105,53 +110,53 @@
 }
 
 .timeline-row {
-  display: flex; 
+  position: relative;
   flex-shrink: 0;
   flex: 1;
   max-height: 60px;
   min-height: 60px;
-  position: relative;
-  z-index: 1;
+  height: 60px;
+  background: white;
+
+  overflow: visible;
+  cursor: pointer;
 }
 
-.timeline-cell {
-  min-width: 150px;
-  background: white;
-  position: relative;
-  flex-shrink: 0;
-  height: 100%;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
- 
-  &::after {
-    content: "";
-    position: absolute;
-    top: -1000px; // Extend upward
-    bottom: -1000px; // Extend downward
-    right: 0;
-    width: 1px;
-    background: #C8CFE9;
-    z-index: 0;
-    pointer-events: none;
-  }
+.vertical-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  // Current month left border extending through all rows
-  &.current-month::before {
-    content: "";
-    position: absolute;
-    top: -1000px; // Extend upward
-    bottom: -1000px; // Extend downward
-    left: 0;
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: -1000px;
+  width: 1px;
+  background: #C8CFE9;
+  pointer-events: none;
+  z-index: 0;
+
+  &.current-month {
     width: 3px;
     background: #D4D7FF;
-    z-index: 1;
-    pointer-events: none;
   }
 
-  &:last-child::after {
+  &:last-child {
     display: none;
   }
+}
+
+.current-month-label {
+  position: absolute;
+  top: 8px;
+  font-size: 11px;
+  color: #7b1fa2;
+  font-weight: 500;
+  z-index: 1;
+  pointer-events: none;
 }

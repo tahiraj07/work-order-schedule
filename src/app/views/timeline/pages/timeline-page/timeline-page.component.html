@@ -16,7 +16,19 @@
   <!-- Timeline Grid -->
   <app-timeline-grid
     [workCenters]="workCenters"
-    [timelineMonths]="timelineMonths"
-    [currentMonth]="currentMonth"
+    (cellClick)="onCellClick($event)"
+    (editWorkOrder)="onEditWorkOrder($event)"
+    (deleteWorkOrder)="onDeleteWorkOrder($event)"
+  />
+
+  <!-- Form Panel -->
+  <app-work-order-form-panel
+    [isOpen]="isFormPanelOpen"
+    [mode]="formMode"
+    [workOrder]="selectedWorkOrder"
+    [initialStartDate]="initialStartDate"
+    [initialWorkCenterId]="initialWorkCenterId"
+    (closed)="onFormPanelClosed()"
+    (saved)="onFormPanelSaved($event)"
   />
 </div>

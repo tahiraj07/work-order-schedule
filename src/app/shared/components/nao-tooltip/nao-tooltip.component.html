@@ -1,6 +1,25 @@
 <div class="tooltip-wrapper">
   <ng-content></ng-content>
-  <div class="tooltip" [class]="'tooltip-' + position">
-    {{ text }}
-  </div>
+  @if (showAsMenu) {
+    <div 
+      class="tooltip tooltip-menu" 
+      [class]="'tooltip-' + position"
+      [class.open]="isOpen && trigger === 'click'"
+    >
+      @for (item of items; track item.value) {
+        <button
+          type="button"
+          class="tooltip-menu-item"
+          [class.disabled]="item.disabled"
+          (click)="onItemClick(item, $event)"
+        >
+          {{ item.label }}
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="tooltip" [class]="'tooltip-' + position">
+      {{ text }}
+    </div>
+  }
 </div>

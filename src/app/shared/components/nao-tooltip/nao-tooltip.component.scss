@@ -1,9 +1,9 @@
 .tooltip-wrapper {
   position: relative;
   display: inline-block;
-  height: 26px;
 
-  &:hover .tooltip {
+  // Hover trigger (default) - only for text tooltips
+  &:hover .tooltip:not(.tooltip-menu) {
     opacity: 1;
     visibility: visible;
   }
@@ -56,5 +56,81 @@
     top: 50%;
     transform: translateY(-50%);
     margin-left: 8px;
+  }
+
+  // Menu style (for click-triggered tooltip with items)
+  &.tooltip-menu {
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #d8ddeb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 120px;
+    white-space: normal;
+    pointer-events: auto;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+
+    &.open {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    // Bottom position for menu (below trigger)
+    &.tooltip-bottom {
+      top: 100%;
+      left: auto;
+      right: 0;
+      transform: none;
+      margin-top: 4px;
+    }
+  }
+}
+
+.tooltip-menu-item {
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Circular-Std", sans-serif;
+  font-weight: 400;
+  color: #495057;
+  transition: background-color 0.2s ease;
+  display: block;
+  white-space: nowrap;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+    color: #007bff;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: #f8f9fa;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: #f8f9fa;
+  }
+
+  &:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 8px 8px;
+  }
+
+  &:only-child {
+    border-radius: 8px;
   }
 }

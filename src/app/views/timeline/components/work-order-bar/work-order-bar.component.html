@@ -1,17 +1,42 @@
+<div class="work-order-bar-container">
 <div
   class="work-order-bar"
   [style.left.px]="left"
-  [style.width.px]="width"
+  [style.z-index]="zIndex"
   [attr.data-status]="workOrder.data.status"
+  (click)="$event.stopPropagation()"
 >
-  <app-nao-tooltip [text]="getTooltipText()">
-    <div class="bar-content">
+  <div class="bar-content" 
+  [style.z-index]="0">
+    <app-nao-tooltip [text]="getTooltipText()" trigger="hover">
       <span class="work-order-name">{{ workOrder.data.name }}</span>
-      <app-nao-badge [status]="workOrder.data.status" />
-      <app-nao-dropdown-menu
-        [items]="dropdownMenuItems"
+    </app-nao-tooltip>
+    <app-nao-badge [status]="workOrder.data.status" />
+    <div class="menu-container">
+      <app-nao-tooltip
+        [items]="menuItems"
+        [isOpen]="isMenuOpen"
+        trigger="click"
+        position="bottom"
         (itemSelected)="onMenuItemSelected($event)"
-      />
+        (closed)="onMenuClosed()"
+      >
+        <button
+          type="button"
+          class="three-dots-button"
+          (click)="onThreeDotsClick(); $event.stopPropagation()"
+          aria-label="Actions menu"
+          [attr.aria-expanded]="isMenuOpen"
+          aria-haspopup="true"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <circle cx="8" cy="3" r="1.5" />
+            <circle cx="8" cy="8" r="1.5" />
+            <circle cx="8" cy="13" r="1.5" />
+          </svg>
+        </button>
+      </app-nao-tooltip>
     </div>
-  </app-nao-tooltip>
+  </div>
+</div>
 </div>

@@ -1,0 +1,90 @@
+@if (isOpen()) {
+  <div class="panel-overlay" (click)="onClose()">
+    <div class="panel-container" (click)="$event.stopPropagation()">
+      <!-- Panel Header -->
+      <div class="panel-header">
+        <div class="header-content">
+          <h2 class="panel-title">Work Order Details</h2>
+          <p class="panel-description">Specify the dates, name and status for this order.</p>
+        </div>
+        <div class="header-actions">
+          <app-nao-button type="secondary" (click)="onClose()">Cancel</app-nao-button>
+          <app-nao-button
+            type="primary"
+            [disabled]="form.invalid || isSubmitting()"
+            (click)="onSubmit()"
+          >
+            {{ getButtonText() }}
+          </app-nao-button>
+        </div>
+      </div>
+
+      <!-- Panel Body -->
+      <div class="panel-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!-- Work Order Name -->
+          <div class="form-field">
+            <app-nao-input
+              label="Work Order Name"
+              formControlName="name"
+              [required]="true"
+              [errorMessage]="getFieldError('name')"
+              placeholder="Acme Inc."
+            />
+          </div>
+
+          <!-- Work Center -->
+          <div class="form-field">
+            <app-nao-select
+              variant="status"
+              label="Work Center"
+              [items]="workCenterOptions"
+              formControlName="workCenterId"
+              [required]="true"
+              [errorMessage]="getFieldError('workCenterId')"
+              placeholder="Select work center"
+            />
+          </div>
+
+          <!-- Status -->
+          <div class="form-field">
+            <app-nao-select
+              variant="status"
+              label="Status"
+              [items]="statusOptions"
+              formControlName="status"
+              [required]="true"
+              [errorMessage]="getFieldError('status')"
+              placeholder="Select status"
+            />
+          </div>
+
+          <!-- Start Date -->
+          <div class="form-field">
+            <app-nao-datepicker
+              label="Start date"
+              formControlName="startDate"
+              [required]="true"
+              [errorMessage]="getFieldError('startDate')"
+            />
+          </div>
+
+          <!-- End Date -->
+          <div class="form-field">
+            <app-nao-datepicker
+              label="End date"
+              formControlName="endDate"
+              [required]="true"
+              [errorMessage]="getFieldError('endDate')"
+            />
+          </div>
+
+          <!-- Form-level errors -->
+          @if (getFormError()) {
+            <div class="form-error">{{ getFormError() }}</div>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+}

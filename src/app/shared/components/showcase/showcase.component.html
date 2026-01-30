@@ -372,9 +372,9 @@
         </div>
       </div>
 
-      <!-- Dropdown Menu Component -->
+      <!-- Tooltip Menu Component (Click Trigger) -->
       <div class="showcase-item">
-        <h3>Dropdown Menu Component</h3>
+        <h3>Tooltip Menu Component (Click Trigger)</h3>
         <p>Click the three dots to open the menu:</p>
         <div
           style="
@@ -387,11 +387,32 @@
             overflow: visible;
           "
         >
-          <app-nao-dropdown-menu
+          <app-nao-tooltip
             [items]="dropdownMenuItems"
-            ariaLabel="Work order actions"
+            [isOpen]="isDropdownOpen()"
+            trigger="click"
+            position="bottom"
             (itemSelected)="onMenuItemSelected($event)"
-          />
+            (closed)="onDropdownClosed()"
+          >
+            <button
+              type="button"
+              (click)="isDropdownOpen.set(!isDropdownOpen()); $event.stopPropagation()"
+              style="
+                padding: 8px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #6c757d;
+              "
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <circle cx="8" cy="3" r="1.5" />
+                <circle cx="8" cy="8" r="1.5" />
+                <circle cx="8" cy="13" r="1.5" />
+              </svg>
+            </button>
+          </app-nao-tooltip>
         </div>
         @if (selectedMenuItem()) {
           <p class="value-display" style="margin-top: 10px">

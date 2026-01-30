@@ -10,34 +10,51 @@
   </div>
 
   <!-- Right Panel: Timeline Grid (Scrollable) -->
-  <div class="timeline-panel">
+  <div class="timeline-panel" #timelinePanel>
     <!-- Timeline Header -->
     <div class="timeline-header">
-      @for (month of timelineMonths; track month) {
-        <div class="timeline-month-header">
-          <div class="month-name">{{ month }}</div>
-          <!-- Vertical line extending down -->
-          <div class="header-vertical-line"></div>
+      @for (date of dateHeaders(); track date.getTime()) {
+        <div class="timeline-month-header" [class.current-month]="isCurrentMonth(date)">
+          <div class="month-name">{{ formatDateHeader(date) }}</div>
         </div>
       }
     </div>
 
     <!-- Timeline Rows -->
     @for (workCenter of workCenters; track workCenter; let i = $index) {
-      <div class="timeline-row">
-        @for (month of timelineMonths; track month) {
-          <div class="timeline-cell" [class.current-month]="month === currentMonth">
-            @if (month === currentMonth && i === 0) {
-              <div class="current-month-label">Current month</div>
-            }
-          </div>
+      <div 
+        class="timeline-row"
+        [style.width.px]="containerWidth()"
+        (click)="onRowClick($event, workCenter)"
+      >
+        <!-- Vertical lines overlay -->
+        <div class="vertical-lines">
+          @for (date of dateHeaders(); track date.getTime(); let j = $index) {
+            <div 
+              class="vertical-line"
+              [class.current-month]="j === getCurrentMonthIndex()"
+              [style.left.px]="j * 150"
+            ></div>
+          }
+        </div>
+        
+        <!-- Current month label (only on first row, first cell of current month) -->
+        @if (i === 0) {
+          @if (getCurrentMonthIndex() >= 0) {
+            <div class="current-month-label" [style.left.px]="getCurrentMonthIndex() * 150 + 8">
+              Current month
+            </div>
+          }
         }
+        
         <!-- Work order bars for this work center (positioned absolutely) -->
         @for (workOrder of getWorkOrdersForCenter(workCenter); track workOrder.docId) {
           <app-work-order-bar
             [workOrder]="workOrder"
-            [left]="getBarLeft(workOrder, i)"
-            [width]="getBarWidth(workOrder, i)"
+            [left]="getBarLeft(workOrder)"
+            [width]="getBarWidth(workOrder)"
+            (edit)="onEditWorkOrder($event)"
+            (delete)="onDeleteWorkOrder($event)"
           />
         }
       </div>
