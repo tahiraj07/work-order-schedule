@@ -14,11 +14,11 @@ npm install
 ng serve
 ```
 
-3. Navigate to `http://localhost:4200/` - the app will redirect to `/timeline` by default.
+3. Navigate to `http://localhost:4200/` - the timeline view loads directly at the root path.
 
 ## Routes
 
-- `/timeline` - Main timeline view (default)
+- `/` - Main timeline view (default)
 - `/showcase` - Component showcase page for testing shared components
 
 ## Approach
