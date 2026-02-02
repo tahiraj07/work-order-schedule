@@ -1,4 +1,4 @@
-import { Component, signal, inject, effect } from "@angular/core";
+import { Component, signal, inject, effect, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import {
@@ -10,6 +10,7 @@ import { WorkOrderFormPanelComponent } from "../../components/work-order-form-pa
 import { WorkOrderService } from "../../../../core/services/work-order.service";
 import { TimelineService } from "../../../../core/services/timeline.service";
 import { TimelineZoomLevel, WorkOrderDocument } from "../../../../core/models/work-order.model";
+import { NaoButtonComponent } from "../../../../shared/components/nao-button/nao-button.component";
 
 @Component({
   selector: "app-timeline-page",
@@ -18,6 +19,7 @@ import { TimelineZoomLevel, WorkOrderDocument } from "../../../../core/models/wo
     CommonModule,
     FormsModule,
     NaoSelectComponent,
+    NaoButtonComponent,
     TimelineGridComponent,
     WorkOrderFormPanelComponent,
   ],
@@ -27,8 +29,9 @@ import { TimelineZoomLevel, WorkOrderDocument } from "../../../../core/models/wo
 export class TimelinePageComponent {
   private workOrderService = inject(WorkOrderService);
   private timelineService = inject(TimelineService);
+  
+  @ViewChild(TimelineGridComponent) timelineGrid!: TimelineGridComponent;
 
-  // Timescale options
   timescaleOptions: SelectOption[] = [
     { value: "day", label: "Day" },
     { value: "week", label: "Week" },
@@ -36,8 +39,6 @@ export class TimelinePageComponent {
   ];
 
   selectedTimescale = signal<string | null>("month");
-
-  // Form panel state
   isFormPanelOpen = signal(false);
   formMode: "create" | "edit" = "create";
   selectedWorkOrder?: WorkOrderDocument;
@@ -45,10 +46,7 @@ export class TimelinePageComponent {
   initialWorkCenterId?: string;
 
   constructor() {
-    // Initialize zoom level
     this.timelineService.setZoomLevel("month");
-
-    // Update zoom level when timescale changes
     effect(() => {
       const timescale = this.selectedTimescale();
       if (timescale) {
@@ -57,19 +55,18 @@ export class TimelinePageComponent {
     }, { allowSignalWrites: true });
   }
 
-  // Get work centers from service
   get workCenters(): string[] {
     return this.workOrderService.getWorkCenters().map((wc) => wc.data.name);
   }
 
   onTodayClick(): void {
-    // Center timeline on today
     this.timelineService.centerOnToday();
+    setTimeout(() => {
+      this.timelineGrid?.scrollToToday();
+    }, 100);
   }
 
-  // Handle cell click to open create form
   onCellClick(event: { date: Date; workCenterName: string }): void {
-    // Find work center by name
     const workCenter = this.workOrderService
       .getWorkCenters()
       .find((wc) => wc.data.name === event.workCenterName);
@@ -81,7 +78,6 @@ export class TimelinePageComponent {
     this.isFormPanelOpen.set(true);
   }
 
-  // Handle edit work order
   onEditWorkOrder(workOrder: WorkOrderDocument): void {
     this.formMode = "edit";
     this.selectedWorkOrder = workOrder;
@@ -90,19 +86,15 @@ export class TimelinePageComponent {
     this.isFormPanelOpen.set(true);
   }
 
-  // Handle delete work order (already handled in grid component)
   onDeleteWorkOrder(workOrder: WorkOrderDocument): void {
-    // Already handled in grid component
+    // Handled in grid component
   }
 
-  // Handle form panel close
   onFormPanelClosed(): void {
     this.isFormPanelOpen.set(false);
   }
 
-  // Handle form panel save
   onFormPanelSaved(workOrder: WorkOrderDocument): void {
     this.isFormPanelOpen.set(false);
-    // Work order is already saved by the service
   }
 }

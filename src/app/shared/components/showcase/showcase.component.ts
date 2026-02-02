@@ -13,7 +13,6 @@ import { NaoButtonComponent } from "../nao-button/nao-button.component";
 import { NaoBadgeComponent } from "../nao-badge/nao-badge.component";
 import { NaoSelectComponent, SelectOption } from "../nao-select/nao-select.component";
 import { NaoTooltipComponent, TooltipMenuItem } from "../nao-tooltip/nao-tooltip.component";
-import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { WorkOrderStatus, TimelineZoomLevel } from "../../../core/models/work-order.model";
 
 /**
@@ -93,9 +92,6 @@ export class ShowcaseComponent {
     this.isDropdownOpen.set(false);
   }
 
-  // Date constraints
-  minDate: NgbDateStruct = { year: 2025, month: 1, day: 1 };
-  maxDate: NgbDateStruct = { year: 2026, month: 12, day: 31 };
 
   constructor(private fb: FormBuilder) {}
 

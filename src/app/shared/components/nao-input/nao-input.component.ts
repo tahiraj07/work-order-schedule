@@ -2,18 +2,6 @@ import { Component, Input, forwardRef, computed, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from "@angular/forms";
 
-/**
- * Shared Input Component
- * Reusable input component matching the design system
- * Supports both regular text input and datepicker integration
- *
- * Design specs from images:
- * - White background
- * - Light gray border (#D8DDEB)
- * - Rounded corners
- * - Subtle drop shadow
- * - Placeholder text in light gray (#8E97A6)
- */
 @Component({
   selector: "app-nao-input",
   standalone: true,
@@ -40,7 +28,7 @@ export class NaoInputComponent implements ControlValueAccessor {
   @Input() hint?: string;
 
   // For datepicker integration
-  @Input() datepicker?: any; // ngbDatepicker reference (can be set from parent)
+  @Input() datepicker?: any;  
   @Input() showDatepickerIcon = false;
 
   // Internal state
@@ -86,8 +74,7 @@ export class NaoInputComponent implements ControlValueAccessor {
    */
   onDatepickerClick(): void {
     if (!this.disabled && this.datepicker) {
-      // Let parent component handle the toggle
-      // This is handled by NaoDatepickerComponent
+      // Let parent component handle the toggle 
     }
   }
 

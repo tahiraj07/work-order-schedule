@@ -14,7 +14,7 @@
 }
 
 .panel-container {
-  width: 480px;
+  width: 591px;
   background: white;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -47,31 +47,39 @@
   border-bottom: 1px solid #E6EBF0;
   background: white;
   flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
 }
 
 .header-content {
-  margin-bottom: 16px;
+  flex: 1;
+  min-width: 0;  
 }
 
 .panel-title {
   font-size: 20px;
-  font-weight: 600;
-  color: #030929;
-  margin: 0 0 8px 0;
-  font-family: "CircularStd-Regular", sans-serif;
+  font-weight: 500;
+  font-style: medium; 
+  color: #2F3059;
+  margin-bottom: 5px;
+  font-family: "CircularStd-Medium", sans-serif;
 }
 
-.panel-description {
-  font-size: 14px;
+.panel-description { 
   color: #687196;
   margin: 0;
-  font-family: "CircularStd-Regular", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "CircularStd-Book", sans-serif;
 }
 
 .header-actions {
   display: flex;
   gap: 12px;
-  justify-content: flex-end;
+  flex-shrink: 0;  
+  align-items: flex-start;  
 }
 
 .panel-body {

@@ -16,35 +16,12 @@
 
   <div class="datepicker-popup" [class.show]="showDatepicker()" (click)="$event.stopPropagation()">
     @if (showDatepicker()) {
-      @if (minDate && maxDate) {
-        <ngb-datepicker
-          #datepicker
-          [minDate]="minDate"
-          [maxDate]="maxDate"
-          [ngModel]="dateValue()"
-          (dateSelect)="onDateSelect($event)"
-        ></ngb-datepicker>
-      } @else if (minDate) {
-        <ngb-datepicker
-          #datepicker
-          [minDate]="minDate"
-          [ngModel]="dateValue()"
-          (dateSelect)="onDateSelect($event)"
-        ></ngb-datepicker>
-      } @else if (maxDate) {
-        <ngb-datepicker
-          #datepicker
-          [maxDate]="maxDate"
-          [ngModel]="dateValue()"
-          (dateSelect)="onDateSelect($event)"
-        ></ngb-datepicker>
-      } @else {
-        <ngb-datepicker
-          #datepicker
-          [ngModel]="dateValue()"
-          (dateSelect)="onDateSelect($event)"
-        ></ngb-datepicker>
-      }
+      <ngb-datepicker
+        #datepicker
+        [ngModel]="dateValue()"
+        navigation="select"
+        (dateSelect)="onDateSelect($event)"
+      ></ngb-datepicker>
     }
   </div>
 </div>

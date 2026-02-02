@@ -16,6 +16,12 @@
   margin: 0 0 16px 0;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .timescale-selector {
   display: inline-block;
 }

@@ -1,8 +1,23 @@
 .nao-select-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 6px;
   width: 100%;
+  gap: 6px; 
+}
+
+.nao-select-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Circular-Regular", sans-serif;
+  color: #687196;
+  line-height: 1.2;
+
+  .required-indicator {
+    color: #dc3545;
+    margin-left: 4px;
+  }
 }
 
 ::ng-deep {
@@ -53,19 +68,26 @@
     }
 
     .ng-arrow-wrapper {
-      padding-right: 12px;
+      padding: 8px;
+      margin-right: 8px;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
 
     .ng-arrow {
       display: none;
-    }
-
-    .custom-arrow {
-      width: 9px;
-      height: 6px;
-      display: block;
+      
+      &::after {
+        content: '';
+        display: block;
+        width: 9px;
+        height: 6px;
+        background-image: url('/assets/Down.svg');
+        background-size: 9px 6px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
   }
 
@@ -90,19 +112,33 @@
     }
 
     .ng-arrow-wrapper {
-      padding-right: 12px;
+      padding: 8px;
+      margin-right: 12px;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
 
     .ng-arrow {
       display: none;
+      
+      &::after {
+        content: '';
+        display: block;
+        width: 9px;
+        height: 5px;
+        background-image: url('/assets/Triangle.svg');
+        background-size: 9px 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
+  }
 
-    .custom-arrow {
-      width: 9px;
-      height: 6px;
-      display: block;
+  // Show arrow for both variants
+  .show-arrow {
+    .ng-arrow-wrapper {
+      display: flex !important;
     }
   }
 
@@ -111,6 +147,7 @@
   .status-select {
     .ng-dropdown-panel {
       border-radius: 8px;
+      margin-top: 4px;
       border: 1px solid #d8ddeb;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       background: white;
@@ -120,14 +157,20 @@
     .ng-option {
       padding: 10px 12px;
 
-      &.ng-option-selected {
-        background: #e6f3ff;
-        color: #5659ff;
-        font-weight: 500;
+      &.ng-option-selected {  
+        .ng-option-label { 
+          color: #3E40DB;
+        }
       }
 
       &.ng-option-marked {
         background: #f8f9fa;
+      }
+      .ng-option-label {
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "Circular-Std", sans-serif;
+        color: #2F3059;
       }
     }
   }

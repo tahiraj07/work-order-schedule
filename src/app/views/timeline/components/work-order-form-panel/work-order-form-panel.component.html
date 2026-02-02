@@ -1,18 +1,31 @@
 @if (isOpen()) {
-  <div class="panel-overlay" (click)="onClose()">
-    <div class="panel-container" (click)="$event.stopPropagation()">
+  <div 
+    class="panel-overlay" 
+    (click)="onClose()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="panel-title"
+    aria-describedby="panel-description"
+  >
+    <div 
+      class="panel-container" 
+      #panelContainer
+      (click)="$event.stopPropagation()"
+      tabindex="-1"
+    >
       <!-- Panel Header -->
       <div class="panel-header">
         <div class="header-content">
-          <h2 class="panel-title">Work Order Details</h2>
-          <p class="panel-description">Specify the dates, name and status for this order.</p>
+          <h2 id="panel-title" class="panel-title">Work Order Details</h2>
+          <p id="panel-description" class="panel-description">Specify the dates, name and status for this order.</p>
         </div>
         <div class="header-actions">
-          <app-nao-button type="secondary" (click)="onClose()">Cancel</app-nao-button>
+          <app-nao-button type="secondary" (click)="onClose()" aria-label="Cancel and close form">Cancel</app-nao-button>
           <app-nao-button
             type="primary"
             [disabled]="form.invalid || isSubmitting()"
             (click)="onSubmit()"
+            [attr.aria-label]="getButtonText() + ' work order'"
           >
             {{ getButtonText() }}
           </app-nao-button>
@@ -25,24 +38,13 @@
           <!-- Work Order Name -->
           <div class="form-field">
             <app-nao-input
+              #firstInput
               label="Work Order Name"
               formControlName="name"
               [required]="true"
               [errorMessage]="getFieldError('name')"
               placeholder="Acme Inc."
-            />
-          </div>
-
-          <!-- Work Center -->
-          <div class="form-field">
-            <app-nao-select
-              variant="status"
-              label="Work Center"
-              [items]="workCenterOptions"
-              formControlName="workCenterId"
-              [required]="true"
-              [errorMessage]="getFieldError('workCenterId')"
-              placeholder="Select work center"
+              aria-label="Work Order Name"
             />
           </div>
 

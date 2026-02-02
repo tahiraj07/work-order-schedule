@@ -2,14 +2,19 @@
   <!-- Header -->
   <div class="page-header">
     <h1 class="page-title">Work Orders</h1>
-    <div class="timescale-selector">
-      <app-nao-select
-        variant="default"
-        label="Timescale"
-        [items]="timescaleOptions"
-        [(ngModel)]="selectedTimescale"
-        [placeholder]="'Select timescale'"
-      />
+    <div class="header-controls">
+      <div class="timescale-selector">
+        <app-nao-select
+          variant="default"
+          label="Timescale"
+          [items]="timescaleOptions"
+          [(ngModel)]="selectedTimescale"
+          [placeholder]="'Select timescale'"
+        />
+      </div>
+      <app-nao-button type="secondary" (click)="onTodayClick()">
+        Today
+      </app-nao-button>
     </div>
   </div>
 

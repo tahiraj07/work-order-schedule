@@ -11,18 +11,7 @@ import { CommonModule } from "@angular/common";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from "@angular/forms";
 import { NgbDatepickerModule, NgbDateStruct, NgbDatepicker } from "@ng-bootstrap/ng-bootstrap";
 import { NaoInputComponent } from "../nao-input/nao-input.component";
-
-/**
- * Datepicker Wrapper Component
- * Wraps ngb-datepicker with our custom input styling
- * Provides consistent design and better separation of concerns
- *
- * Why separate component?
- * - Better separation: Input handles text, Datepicker handles dates
- * - Cleaner API: Datepicker-specific logic isolated
- * - Easier to maintain: Changes to datepicker don't affect text input
- * - Reusable: Can be used anywhere dates are needed
- */
+ 
 @Component({
   selector: "app-nao-datepicker",
   standalone: true,
@@ -45,8 +34,6 @@ export class NaoDatepickerComponent implements ControlValueAccessor, AfterViewIn
   @Input() disabled = false;
   @Input() errorMessage?: string;
   @Input() hint?: string;
-  @Input() minDate?: NgbDateStruct;
-  @Input() maxDate?: NgbDateStruct;
 
   @ViewChild("datepicker") datepicker!: NgbDatepicker;
   @ViewChild(NaoInputComponent) inputComponent!: NaoInputComponent;
@@ -101,20 +88,6 @@ export class NaoDatepickerComponent implements ControlValueAccessor, AfterViewIn
     if (!this.disabled) {
       this.showDatepicker.set(!this.showDatepicker());
     }
-  }
-
-  /**
-   * Get minDate for datepicker (only bind if exists)
-   */
-  getMinDate(): NgbDateStruct {
-    return this.minDate!;
-  }
-
-  /**
-   * Get maxDate for datepicker (only bind if exists)
-   */
-  getMaxDate(): NgbDateStruct {
-    return this.maxDate!;
   }
 
   /**

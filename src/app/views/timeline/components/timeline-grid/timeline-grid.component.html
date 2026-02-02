@@ -2,7 +2,7 @@
   <!-- Left Panel: Work Centers -->
   <div class="work-centers-panel">
     <div class="work-center-header">Work Center</div>
-    @for (workCenter of workCenters; track workCenter) {
+    @for (workCenter of workCenters; track trackByWorkCenter(workCenter)) {
       <div class="work-center-row">
         <div class="work-center-name">{{ workCenter }}</div>
       </div>
@@ -10,11 +10,11 @@
   </div>
 
   <!-- Right Panel: Timeline Grid (Scrollable) -->
-  <div class="timeline-panel" #timelinePanel>
+  <div class="timeline-panel" #timelinePanel (scroll)="onScroll()">
     <!-- Timeline Header -->
     <div class="timeline-header">
-      @for (date of dateHeaders(); track date.getTime()) {
-        <div class="timeline-month-header" [class.current-month]="isCurrentMonth(date)">
+      @for (date of dateHeaders(); track trackByDate(date); let i = $index) {
+        <div class="timeline-month-header" [class.current-month]="isCurrentPeriod(date)" [style.width.px]="getCellWidth()">
           <div class="month-name">{{ formatDateHeader(date) }}</div>
         </div>
       }
@@ -24,31 +24,55 @@
     @for (workCenter of workCenters; track workCenter; let i = $index) {
       <div 
         class="timeline-row"
+        [class.first-row]="i === 0"
+        [class.row-hovered]="hoveredRowIndex() === i"
         [style.width.px]="containerWidth()"
         (click)="onRowClick($event, workCenter)"
       >
-        <!-- Vertical lines overlay -->
-        <div class="vertical-lines">
-          @for (date of dateHeaders(); track date.getTime(); let j = $index) {
+        <!-- Timeline cells -->
+        @for (date of dateHeaders(); track trackByDate(date); let j = $index) {
+          <div 
+            class="timeline-cell"
+            [class.current-period]="j === getCurrentPeriodIndex()"
+            [class.cell-hovered]="hoveredRowIndex() === i && hoveredCellIndex() === j"
+            [style.width.px]="getCellWidth()"
+            (mouseenter)="onCellMouseEnter($event, i, j)"
+            (mouseleave)="onCellMouseLeave()"
+          >
+            <!-- Vertical line -->
             <div 
               class="vertical-line"
-              [class.current-month]="j === getCurrentMonthIndex()"
-              [style.left.px]="j * 150"
+              [class.current-month]="j === getCurrentPeriodIndex()"
             ></div>
-          }
-        </div>
+            
+            <!-- Hover tooltip -->
+            @if (hoveredRowIndex() === i && hoveredCellIndex() === j) {
+              <div class="cell-hover-overlay">
+                <app-nao-tooltip text="Click to add dates" trigger="hover" position="top">
+                  <div class="cell-hover-content">&nbsp;</div>
+                </app-nao-tooltip>
+              </div>
+            }
+          </div>
+        }
         
-        <!-- Current month label (only on first row, first cell of current month) -->
+        <!-- Current period label -->
         @if (i === 0) {
-          @if (getCurrentMonthIndex() >= 0) {
-            <div class="current-month-label" [style.left.px]="getCurrentMonthIndex() * 150 + 8">
-              Current month
+          @if (getCurrentPeriodIndex() >= 0) {
+            <div class="current-month-label" [style.left.px]="getCurrentPeriodIndex() * getCellWidth() + 8">
+              @if (currentZoom() === 'day') {
+                Today
+              } @else if (currentZoom() === 'week') {
+                Current week
+              } @else {
+                Current month
+              }
             </div>
           }
         }
         
-        <!-- Work order bars for this work center (positioned absolutely) -->
-        @for (workOrder of getWorkOrdersForCenter(workCenter); track workOrder.docId) {
+        <!-- Work order bars for this work center -->
+        @for (workOrder of getWorkOrdersForCenter(workCenter); track trackByWorkOrderId(workOrder)) {
           <app-work-order-bar
             [workOrder]="workOrder"
             [left]="getBarLeft(workOrder)"

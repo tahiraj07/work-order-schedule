@@ -1,4 +1,13 @@
 <div class="nao-select-wrapper">
+  @if (showLabel()) {
+    <label [for]="id" class="nao-select-label">
+      {{ label }}
+      @if (required) {
+        <span class="required-indicator">*</span>
+      }
+    </label>
+  }
+
   @if (variant === "default") {
     <!-- Timescale Select -->
     <ng-select
@@ -14,16 +23,14 @@
       [placeholder]="selectedValue() ? '' : placeholder"
       [clearable]="false"
       [searchable]="false"
-      class="timescale-select"
+      [hideSelected]="false"
+      class="timescale-select show-arrow"
     >
       <ng-template ng-label-tmp let-item="item">
         <div class="timescale-label-value">
           <span class="timescale-label">{{ label }}</span>
           <span class="timescale-value">{{ item?.label || "" }}</span>
         </div>
-      </ng-template>
-      <ng-template ng-arrow-tmp>
-        <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
       </ng-template>
     </ng-select>
   } @else {
@@ -40,13 +47,11 @@
       [placeholder]="selectedValue() ? '' : placeholder"
       [clearable]="false"
       [searchable]="false"
-      class="status-select"
+      [hideSelected]="false"
+      class="status-select show-arrow"
     >
       <ng-template ng-label-tmp let-item="item">
         <app-nao-badge [status]="item?.value" />
-      </ng-template>
-      <ng-template ng-arrow-tmp>
-        <img src="assets/Down.svg" alt="dropdown arrow" class="custom-arrow" />
       </ng-template>
     </ng-select>
   }

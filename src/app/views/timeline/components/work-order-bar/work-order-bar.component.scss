@@ -1,39 +1,52 @@
+.work-order-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  pointer-events: none;  
+}
+
 .work-order-bar {
   position: absolute;
-  top: 8px;
-  height: calc(100% - 16px);
-  border-radius: 6px;
-  padding: 8px 12px;
+  top: 11px; 
+  border-radius: 8px;
+  padding: 10px 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  z-index: 1;
-  min-width: 120px;
+  z-index: 1; 
+  max-height: 38px;
   overflow: visible;
-
-  // Status-based colors
+  pointer-events: auto;  
+   
+  &:hover {
+    z-index: 100;
+  }
+ 
   &[data-status="open"] {
-    background: #e6f3ff;
-    border: 1px solid #b3d9ff;
+    background: #e6f3ff; 
     color: #0066cc;
+    box-shadow: 0 0 0 1px rgba(222, 224, 255, 1);
   }
 
   &[data-status="in-progress"] {
-    background: #f3e5f5;
-    border: 1px solid #d4a5e8;
-    color: #7b1fa2; 
+    background: #EDEEFF; 
+    color: #DEE0FF; 
+    box-shadow: 0 0 0 1px rgba(222, 224, 255, 1);
   }
 
   &[data-status="complete"] {
-    background: #e8f5e9;
-    border: 1px solid #a5d6a7;
-    color: #2e7d32;
+    background: #F8FFF3; 
+    color: #D1FAB3;
+    box-shadow: 0 0 0 1px rgba(209, 250, 179, 1);
   }
 
   &[data-status="blocked"] {
-    background: #fff9e6;
-    border: 1px solid #ffd54f;
-    color: #f57c00;
+    background: #FFFCF1;
+    box-shadow: 0 0 0 1px rgba(255, 245, 207, 1);
+    color: #FFF5CF;
   }
 
   &:hover {
@@ -52,13 +65,26 @@
   position: relative;
   z-index: 100;
 }
+ 
+app-nao-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}
 
 .menu-container {
   position: relative;
   display: inline-block;
   flex-shrink: 0;
   overflow: visible;
-  z-index: 1000;
+  z-index: 1000; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+ 
+.work-order-bar:hover .menu-container {
+  opacity: 1;
+  visibility: visible;
 }
 
 .three-dots-button {
@@ -90,12 +116,12 @@
 }
 
 .work-order-name {
-  font-size: 13px;
-  font-weight: 500;
+  color: #030929;
   font-family: "CircularStd-Regular", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: book; 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
+  overflow: hidden; 
+  flex: 1; 
 }

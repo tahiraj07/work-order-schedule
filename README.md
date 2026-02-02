@@ -1,27 +1,80 @@
-# WorkOrderSchedule
+# Work Order Schedule Timeline
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+An interactive timeline component for managing work orders across multiple work centers with day/week/month zoom levels.
 
-## Development server
+## Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Install dependencies:
+```bash
+npm install
+```
 
-## Code scaffolding
+2. Run the development server:
+```bash
+ng serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Navigate to `http://localhost:4200/` - the app will redirect to `/timeline` by default.
+
+## Routes
+
+- `/timeline` - Main timeline view (default)
+- `/showcase` - Component showcase page for testing shared components
+
+## Approach
+
+The application is built with Angular 17+ using standalone components and signals for reactive state management.
+
+**Architecture:**
+- **Shared Components**: Reusable UI components (`nao-input`, `nao-select`, `nao-datepicker`, `nao-button`, `nao-badge`, `nao-tooltip`) following a consistent design system
+- **Timeline Service**: Handles date calculations, positioning, and overlap detection
+- **Work Order Service**: Manages work orders and work centers data with localStorage persistence
+- **Timeline Grid**: Main component rendering work centers and scrollable timeline with infinite scroll
+- **Work Order Bar**: Displays individual work orders on the timeline with status badges and actions
+- **Form Panel**: Slide-out panel for creating/editing work orders with validation
+
+**Key Features:**
+- Infinite scrolling timeline that loads more columns as you scroll
+- Click-to-create work orders by clicking empty timeline cells
+- Overlap detection prevents conflicting work orders on the same work center
+- Three zoom levels (day/week/month) with dynamic header formatting
+- "Today" button to quickly center the timeline on the current date
+
+## Libraries Used
+
+- **@ng-bootstrap/ng-bootstrap** (v16.0.0) - For datepicker component (`ngb-datepicker`)
+- **@ng-select/ng-select** (v12.0.7) - For dropdown/select components with custom styling
+- **@angular/localize** - Required for i18n support in ng-bootstrap
+
+These libraries were chosen because they're well-maintained, provide the required functionality (date picking and dropdowns), and allow for extensive customization to match the design requirements.
+
+## Bonus Features Implemented
+
+**Features:**
+- ✅ **localStorage persistence** - Work orders are saved to localStorage and persist across page refreshes
+- ✅ **Smooth animations** - Panel slide-in/out animations with fade effects
+- ✅ **Keyboard navigation** - Escape key closes the form panel
+- ✅ **Infinite scroll** - Timeline dynamically loads more date columns as you scroll left/right
+- ✅ **"Today" button** - Quickly centers the timeline viewport on today's date
+- ✅ **Tooltip on bar hover** - Shows work order name, status, and full date range on hover
+
+**Polish:**
+- ✅ **Custom datepicker styling** - Datepicker styled to match the design system
+- ✅ **Accessibility** - ARIA labels, roles, and focus management implemented
+- ✅ **Performance** - OnPush change detection and trackBy functions for optimized rendering
+
+**Not Implemented:**
+- Unit/E2E tests (test files exist but contain default boilerplate)
+- AI prompts documentation
+- Trade-offs documentation
+
+**Future Improvements:**
+- `@upgrade` comments added in code marking areas for future enhancement (virtual scrolling, backend integration)
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+ng build
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The build artifacts will be stored in the `dist/` directory.

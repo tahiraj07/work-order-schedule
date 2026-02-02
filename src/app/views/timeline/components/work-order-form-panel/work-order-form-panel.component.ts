@@ -9,6 +9,9 @@ import {
   signal,
   effect,
   WritableSignal,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
@@ -24,13 +27,11 @@ import { NaoDatepickerComponent } from "../../../../shared/components/nao-datepi
 import { NaoSelectComponent, SelectOption } from "../../../../shared/components/nao-select/nao-select.component";
 import { NaoButtonComponent } from "../../../../shared/components/nao-button/nao-button.component";
 import {
-  WorkOrderDocument,
-  WorkOrderStatus,
+  WorkOrderDocument, 
   WorkOrderFormMode,
 } from "../../../../core/models/work-order.model";
 import { WorkOrderService } from "../../../../core/services/work-order.service";
-import { TimelineService } from "../../../../core/services/timeline.service";
-import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { TimelineService } from "../../../../core/services/timeline.service"; 
 
 @Component({
   selector: "app-work-order-form-panel",
@@ -46,7 +47,7 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
   templateUrl: "./work-order-form-panel.component.html",
   styleUrl: "./work-order-form-panel.component.scss",
 })
-export class WorkOrderFormPanelComponent implements OnInit {
+export class WorkOrderFormPanelComponent implements OnInit, AfterViewInit {
   private fb = inject(FormBuilder);
   private workOrderService = inject(WorkOrderService);
   private timelineService = inject(TimelineService);
@@ -59,6 +60,9 @@ export class WorkOrderFormPanelComponent implements OnInit {
 
   @Output() closed = new EventEmitter<void>();
   @Output() saved = new EventEmitter<WorkOrderDocument>();
+
+  @ViewChild("firstInput", { static: false }) firstInputRef?: ElementRef<HTMLInputElement>;
+  @ViewChild("panelContainer", { static: false }) panelContainerRef?: ElementRef<HTMLDivElement>;
 
   form!: FormGroup;
   isSubmitting = signal(false);
@@ -74,15 +78,34 @@ export class WorkOrderFormPanelComponent implements OnInit {
     { value: "blocked", label: "Blocked" },
   ];
 
-  constructor() {
-    // Reinitialize form when panel opens
+  constructor() { 
     effect(() => {
       if (this.isOpen()) {
         setTimeout(() => {
-          this.initForm();
+          this.initForm(); 
+          setTimeout(() => {
+            if (this.firstInputRef) {
+              this.focusFirstInput();
+            }
+          }, 200);
         }, 0);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    // Focus management when panel opens - check if already open
+    if (this.isOpen() && this.firstInputRef) {
+      setTimeout(() => {
+        this.focusFirstInput();
+      }, 150);
+    }
+  }
+
+  private focusFirstInput(): void {
+    if (this.firstInputRef?.nativeElement) {
+      this.firstInputRef.nativeElement.focus();
+    }
   }
 
   ngOnInit(): void {
@@ -118,7 +141,7 @@ export class WorkOrderFormPanelComponent implements OnInit {
   private populateCreateForm(): void {
     const startDate = this.initialStartDate || new Date();
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 7); // Default: start + 7 days
+    endDate.setDate(endDate.getDate() + 7);  
 
     this.form.patchValue({
       name: "",
@@ -226,13 +249,11 @@ export class WorkOrderFormPanelComponent implements OnInit {
       if (result.success) {
         this.onClose();
         this.saved.emit(this.workOrderService.getWorkOrders().slice(-1)[0]);
-      } else {
-        // Show error (you can add error handling here)
+      } else { 
         console.error(result.error);
         alert(result.error);
       }
-    } else {
-      // Edit mode
+    } else { 
       if (!this.workOrder) return;
 
       const result = this.workOrderService.updateWorkOrder(this.workOrder.docId, {
@@ -260,8 +281,9 @@ export class WorkOrderFormPanelComponent implements OnInit {
 
   // Close on Escape key
   @HostListener("document:keydown.escape", ["$event"])
-  onEscapeKey(event: KeyboardEvent): void {
+  onEscapeKey(event: any): void {
     if (this.isOpen()) {
+      event.preventDefault();
       this.onClose();
     }
   }
